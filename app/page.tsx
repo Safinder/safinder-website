@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -13,9 +13,19 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { LanguageSelector } from "@/components/language-selector";
+import {
+  translations,
+  type Language,
+  type TranslationKey,
+} from "@/lib/translations";
 
 export default function HomePage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [currentLanguage, setCurrentLanguage] = useState<Language>("en");
+
+  const t = (key: TranslationKey) => translations[currentLanguage][key];
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 via-yellow-50 to-orange-50">
       {/* Header */}
@@ -31,25 +41,37 @@ export default function HomePage() {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex gap-4 lg:gap-6">
+        <nav className="hidden md:flex gap-4 lg:gap-6 items-center">
           <Link
-            href="#features"
+            href="/"
             className="text-sm lg:text-base text-pink-700 hover:text-pink-500 transition-colors hover:underline font-bold"
           >
-            Features
+            Safinder
           </Link>
           <Link
-            href="#how-it-works"
+            href="/terms"
             className="text-sm lg:text-base hover:underline font-bold text-pink-700 hover:text-pink-500 transition-colors"
           >
-            How It Works
+            {currentLanguage === "en"
+              ? "Terms and Conditions"
+              : currentLanguage === "es"
+              ? "Términos y Condiciones"
+              : "Algemene Voorwaarden"}
           </Link>
           <Link
             href="/privacy"
             className="text-sm lg:text-base hover:underline font-bold text-pink-700 hover:text-pink-500 transition-colors"
           >
-            Privacy
+            {currentLanguage === "en"
+              ? "Privacy Policy"
+              : currentLanguage === "es"
+              ? "Política de Privacidad"
+              : "Privacybeleid"}
           </Link>
+          <LanguageSelector
+            currentLanguage={currentLanguage}
+            onLanguageChange={setCurrentLanguage}
+          />
         </nav>
 
         {/* Mobile Menu Button */}
@@ -95,26 +117,40 @@ export default function HomePage() {
           <div className="bg-white/95 w-full backdrop-blur-sm mt-16 p-6 rounded-b-2xl shadow-xl">
             <nav className="flex flex-col space-y-4">
               <Link
-                href="#features"
+                href="/"
                 className="text-lg text-pink-700 hover:text-pink-500 transition-colors font-bold py-2"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                Features
+                Safinder
               </Link>
               <Link
-                href="#how-it-works"
+                href="/terms"
                 className="text-lg text-pink-700 hover:text-pink-500 transition-colors font-bold py-2"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                How It Works
+                {currentLanguage === "en"
+                  ? "Terms and Conditions"
+                  : currentLanguage === "es"
+                  ? "Términos y Condiciones"
+                  : "Algemene Voorwaarden"}
               </Link>
               <Link
                 href="/privacy"
                 className="text-lg text-pink-700 hover:text-pink-500 transition-colors font-bold py-2"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                Privacy
+                {currentLanguage === "en"
+                  ? "Privacy Policy"
+                  : currentLanguage === "es"
+                  ? "Política de Privacidad"
+                  : "Privacybeleid"}
               </Link>
+              <div className="pt-2">
+                <LanguageSelector
+                  currentLanguage={currentLanguage}
+                  onLanguageChange={setCurrentLanguage}
+                />
+              </div>
             </nav>
           </div>
         </div>
@@ -128,12 +164,10 @@ export default function HomePage() {
             <div className="space-y-8">
               <div>
                 <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-pink-500 via-yellow-500 to-pink-600 bg-clip-text text-transparent leading-tight">
-                  Find Your Perfect Match
+                  {t("heroTitle")}
                 </h1>
                 <p className="text-xl md:text-2xl text-pink-700 mb-8 leading-relaxed">
-                  The dating app designed exclusively for lesbian women and
-                  non-binary individuals. Connect through meaningful weekly
-                  questions and discover your ideal match with Safinder.
+                  {t("heroDescription")}
                 </p>
               </div>
 
@@ -164,7 +198,7 @@ export default function HomePage() {
                       ></path>{" "}
                     </g>
                   </svg>
-                  Soon on iOS
+                  {t("soonIOS")}
                 </Button>
                 <Button
                   size="lg"
@@ -172,7 +206,7 @@ export default function HomePage() {
                   className="border-2 border-pink-400 text-pink-600 hover:bg-pink-50 px-8 py-4 text-lg rounded-full bg-transparent"
                 >
                   <Smartphone className="mr-2 h-5 w-5" />
-                  Soon on Android
+                  {t("soonAndroid")}
                 </Button>
               </div>
 
@@ -180,15 +214,21 @@ export default function HomePage() {
               <div className="flex flex-wrap gap-8 pt-8">
                 <div className="text-center">
                   <div className="text-3xl font-bold text-pink-600">100%</div>
-                  <div className="text-pink-500 text-sm">Made by women</div>
+                  <div className="text-pink-500 text-sm">
+                    {t("madeByWomen")}
+                  </div>
                 </div>
                 <div className="text-center">
                   <div className="text-3xl font-bold text-yellow-600">95%</div>
-                  <div className="text-yellow-500 text-sm">Match Success</div>
+                  <div className="text-yellow-500 text-sm">
+                    {t("matchSuccess")}
+                  </div>
                 </div>
                 <div className="text-center">
                   <div className="text-3xl font-bold text-orange-600">Safe</div>
-                  <div className="text-orange-500 text-sm">Community</div>
+                  <div className="text-orange-500 text-sm">
+                    {t("safeCommunity")}
+                  </div>
                 </div>
               </div>
             </div>
@@ -214,6 +254,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
       {/* Features Section */}
       <section
         id="features"
@@ -221,11 +262,10 @@ export default function HomePage() {
       >
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 bg-gradient-to-r from-pink-600 to-yellow-600 bg-clip-text text-transparent">
-            Why Safinder?
+            {t("whySafinder")}
           </h2>
           <p className="text-xl text-pink-700 text-center mb-16 max-w-2xl mx-auto">
-            Built by sapphic women, for sapphic women. Experience dating that
-            truly understands you.
+            {t("whySafinderDesc")}
           </p>
 
           <div className="grid md:grid-cols-3 gap-8">
@@ -235,12 +275,10 @@ export default function HomePage() {
                   <MessageCircle className="h-8 w-8 text-white" />
                 </div>
                 <h3 className="text-2xl font-bold text-pink-700 mb-4">
-                  Weekly Questions
+                  {t("weeklyQuestions")}
                 </h3>
                 <p className="text-pink-600 leading-relaxed">
-                  Answer thoughtful questions every week that help us understand
-                  your personality, values, and what you're looking for in a
-                  partner.
+                  {t("weeklyQuestionsDesc")}
                 </p>
               </CardContent>
             </Card>
@@ -251,11 +289,10 @@ export default function HomePage() {
                   <Sparkles className="h-8 w-8 text-white" />
                 </div>
                 <h3 className="text-2xl font-bold text-yellow-700 mb-4">
-                  Smart Matching
+                  {t("smartMatching")}
                 </h3>
                 <p className="text-yellow-600 leading-relaxed">
-                  Our unique algorithm creates percentage-based matches, showing
-                  you exactly how compatible you are with potential partners.
+                  {t("smartMatchingDesc")}
                 </p>
               </CardContent>
             </Card>
@@ -266,11 +303,10 @@ export default function HomePage() {
                   <Users className="h-8 w-8 text-white" />
                 </div>
                 <h3 className="text-2xl font-bold text-orange-700 mb-4">
-                  Safe Community
+                  {t("safeCommunity")}
                 </h3>
                 <p className="text-orange-600 leading-relaxed">
-                  A verified, inclusive space exclusively for lesbian women and
-                  non-binary individuals to connect authentically and safely.
+                  {t("safeCommunityDesc")}
                 </p>
               </CardContent>
             </Card>
@@ -282,7 +318,7 @@ export default function HomePage() {
       <section id="how-it-works" className="py-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-16 bg-gradient-to-r from-pink-600 to-yellow-600 bg-clip-text text-transparent">
-            How It Works
+            {t("howItWorksTitle")}
           </h2>
 
           <div className="grid md:grid-cols-3 gap-12">
@@ -291,12 +327,9 @@ export default function HomePage() {
                 1
               </div>
               <h3 className="text-2xl font-bold text-pink-700 mb-4">
-                Answer Weekly Questions
+                {t("step1Title")}
               </h3>
-              <p className="text-pink-600 leading-relaxed">
-                Every week, answer carefully crafted questions about your
-                interests, values, and relationship goals.
-              </p>
+              <p className="text-pink-600 leading-relaxed">{t("step1Desc")}</p>
             </div>
 
             <div className="relative">
@@ -304,11 +337,10 @@ export default function HomePage() {
                 2
               </div>
               <h3 className="text-2xl font-bold text-yellow-700 mb-4">
-                Get Your Matches
+                {t("step2Title")}
               </h3>
               <p className="text-yellow-600 leading-relaxed">
-                Our algorithm analyzes your responses and presents you with
-                compatible matches, complete with percentage scores.
+                {t("step2Desc")}
               </p>
             </div>
 
@@ -317,11 +349,10 @@ export default function HomePage() {
                 3
               </div>
               <h3 className="text-2xl font-bold text-orange-700 mb-4">
-                Choose & Connect
+                {t("step3Title")}
               </h3>
               <p className="text-orange-600 leading-relaxed">
-                Browse your matches, see compatibility percentages, and choose
-                who you'd like to connect with for meaningful conversations.
+                {t("step3Desc")}
               </p>
             </div>
           </div>
@@ -332,16 +363,14 @@ export default function HomePage() {
       <section className="py-20 px-4 bg-gradient-to-r from-pink-100 via-yellow-100 to-pink-100">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl font-bold mb-16 bg-gradient-to-r from-pink-600 to-yellow-600 bg-clip-text text-transparent">
-            Love Stories
+            {t("loveStories")}
           </h2>
 
           <div className="grid md:grid-cols-3 gap-8">
             <Card className="bg-white/80 backdrop-blur-sm border-2 border-pink-200">
               <CardContent className="p-10">
                 <p className="text-pink-700 mb-6 italic text-lg leading-relaxed">
-                  "Safinder helped me find my girlfriend of 8 months! The weekly
-                  questions really helped us connect on a deeper level before we
-                  even met."
+                  "{t("testimonial1")}"
                 </p>
                 <div className="flex items-center justify-center">
                   <div className="w-12 h-12 bg-gradient-to-br from-pink-400 to-pink-500 rounded-full flex items-center justify-center mr-4">
@@ -358,9 +387,7 @@ export default function HomePage() {
             <Card className="bg-white/80 backdrop-blur-sm border-2 border-yellow-200">
               <CardContent className="p-10">
                 <p className="text-yellow-700 mb-6 italic text-lg leading-relaxed">
-                  "Finally, a dating app that gets it! The percentage matching
-                  is so helpful, and I love how safe and inclusive the community
-                  feels."
+                  "{t("testimonial2")}"
                 </p>
                 <div className="flex items-center justify-center">
                   <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-full flex items-center justify-center mr-4 mt-8">
@@ -373,12 +400,11 @@ export default function HomePage() {
                 </div>
               </CardContent>
             </Card>
+
             <Card className="bg-white/80 backdrop-blur-sm border-2 border-orange-200">
               <CardContent className="p-8">
                 <p className="text-orange-700 mb-6 italic text-lg leading-relaxed">
-                  "I found my gorgeous girlfriend through an event organized by
-                  Safinder. We instantly matched and have been glued to each
-                  other since. THANK YOU SAFINDER!"
+                  "{t("testimonial3")}"
                 </p>
                 <div className="flex items-center justify-center">
                   <div className="w-12 h-12 bg-gradient-to-br from-orange-400 to-orange-500 rounded-full flex items-center justify-center mr-4 mt-2">
@@ -399,11 +425,10 @@ export default function HomePage() {
       <section className="py-20 px-4 bg-gradient-to-br from-pink-500 via-pink-400 to-yellow-400 text-white">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Ready to Find Your Person?
+            {t("readyTitle")}
           </h2>
           <p className="text-xl mb-12 opacity-90 max-w-2xl mx-auto">
-            Join thousands of sapphic women and non-binary individuals who have
-            found meaningful connections on Safinder.
+            {t("readyDesc")}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -412,14 +437,14 @@ export default function HomePage() {
               className="bg-white text-pink-600 hover:bg-pink-50 px-8 py-4 text-lg rounded-full shadow-lg hover:shadow-xl transition-all"
             >
               <Download className="mr-2 h-5 w-5" />
-              Download Soon
+              {t("downloadSoon")}
             </Button>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="py-12 px-4 bg-pink-900 text-pink-100">
+      <footer className="py-12 px-4 bg-pink-900 text-pink-100 mt-16">
         <div className="max-w-4xl mx-auto text-center">
           <div className="flex items-center justify-center space-x-2 mb-6">
             <Image
@@ -431,19 +456,49 @@ export default function HomePage() {
           </div>
 
           <div className="flex flex-wrap justify-center gap-6 mb-8">
+            <Link href="/" className="hover:text-white transition-colors">
+              {currentLanguage === "en"
+                ? "Home"
+                : currentLanguage === "es"
+                ? "Inicio"
+                : "Home"}
+            </Link>
             <Link
               href="/privacy"
               className="hover:text-white transition-colors"
             >
-              Privacy Policy
+              {currentLanguage === "en"
+                ? "Privacy Policy"
+                : currentLanguage === "es"
+                ? "Política de Privacidad"
+                : "Privacybeleid"}
             </Link>
-            <Link href="/privacy/#contact" className="hover:text-white transition-colors">
-              Contact
+            <Link href="/terms" className="hover:text-white transition-colors">
+              {currentLanguage === "en"
+                ? "Terms & Conditions"
+                : currentLanguage === "es"
+                ? "Términos y Condiciones"
+                : "Algemene Voorwaarden"}
+            </Link>
+            <Link
+              href="/privacy/#contact"
+              className="hover:text-white transition-colors"
+            >
+              {currentLanguage === "en"
+                ? "Contact"
+                : currentLanguage === "es"
+                ? "Contacto"
+                : "Contact"}
             </Link>
           </div>
 
           <p className="text-pink-300">
-            © 2025 Safinder. Made with 💖 for the sapphic community.
+            © 2025 Safinder.{" "}
+            {currentLanguage === "en"
+              ? "Made with 💖 for the sapphic community."
+              : currentLanguage === "es"
+              ? "Hecho con 💖 para la comunidad sáfica."
+              : "Gemaakt met 💖 voor de saffische gemeenschap."}
           </p>
         </div>
       </footer>

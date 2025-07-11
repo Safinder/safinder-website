@@ -1,108 +1,161 @@
-"use client"
+"use client";
 
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Heart, Shield, Lock, Eye, Users, MessageCircle } from "lucide-react";
+import { Lock, Eye, Users, Cookie } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import Navbar from "@/components/layout/Navbar";
+import type { Language } from "@/lib/translations";
+
+const cookiesContent = {
+  en: {
+    title: "Safinder Cookie Policy",
+    lastUpdated: "Last updated: July, 2025",
+    intro:
+      "At Safinder, we use cookies to improve user experience and ensure the proper functioning of the platform. This policy explains what cookies we use, what they are for, and how you can manage them.",
+    sections: [
+      {
+        title: "1. What are cookies?",
+        content:
+          "Cookies are small files that are stored on your device (mobile, tablet or computer) when you use our app. They allow us to recognize your device, remember your preferences and facilitate your navigation.",
+      },
+      {
+        title: "2. Types of cookies we use",
+        content:
+          "At Safinder we use different types of cookies, each with a specific purpose:\n\n- Essential cookies: These are necessary for the basic functioning of the app, such as logging in or accessing certain secure functions.\n- Personalization cookies: They allow us to remember your preferences, such as language or your approximate location, to offer you a more adapted experience.\n- Analytical cookies: They help us understand how users interact with the app, detect errors and improve our services.\n- Third-party cookies: Some services we use, such as analytics tools or push notifications, may install their own cookies. These cookies are managed by third parties and have their own privacy policies.",
+      },
+      {
+        title: "3. Why do we use cookies?",
+        content:
+          "- So you can log in and use the app normally.\n- To remember your preferences (language, location, settings).\n- To analyze app usage and improve features.\n- To prevent fraud or abusive use.",
+      },
+      {
+        title: "4. Can I disable them?",
+        content:
+          "Yes. You can accept, reject or configure your cookies from the consent banner when you first enter, or change them at any time from the Cookie Settings section of the app or your browser.\n\nIf you disable essential cookies, the app may not work properly.",
+      },
+      {
+        title: "5. Third-party cookies",
+        content:
+          "We use tools such as:\n- Google Analytics: to analyze app usage.\n- Firebase: for error control and performance.\n- OneSignal or similar: for push notifications.\n\nThese providers could make international transfers. In all cases, we guarantee that they comply with adequate protection measures.",
+      },
+      {
+        title: "6. Changes to this Policy",
+        content:
+          "We may update this policy at any time. We will notify you if significant changes are made.",
+      },
+    ],
+  },
+  es: {
+    title: "Política de Cookies de Safinder",
+    lastUpdated: "Última actualización: 9 de julio 2025",
+    intro:
+      "En Safinder, utilizamos cookies para mejorar la experiencia de las usuarias y garantizar el buen funcionamiento de la plataforma. Esta política explica qué cookies usamos, para qué sirven y cómo puedes gestionarlas.",
+    sections: [
+      {
+        title: "1. ¿Qué son las cookies?",
+        content:
+          "Las cookies son pequeños archivos que se almacenan en tu dispositivo (móvil, tablet u ordenador) cuando utilizas nuestra app. Permiten reconocer tu dispositivo, recordar tus preferencias y facilitar tu navegación.",
+      },
+      {
+        title: "2. Tipos de cookies que utilizamos",
+        content:
+          "En Safinder utilizamos diferentes tipos de cookies, cada una con una finalidad concreta:\n\n- Cookies esenciales: Son necesarias para el funcionamiento básico de la app, como iniciar sesión o acceder a ciertas funciones seguras.\n- Cookies de personalización: Permiten recordar tus preferencias, como el idioma o tu ubicación aproximada, para ofrecerte una experiencia más adaptada.\n- Cookies analíticas: Nos ayudan a comprender cómo interactúan las usuarias con la app, detectar errores y mejorar nuestros servicios.\n- Cookies de terceros: Algunos servicios que utilizamos, como herramientas de análisis o notificaciones push, pueden instalar sus propias cookies. Estas cookies están gestionadas por terceros y tienen sus propias políticas de privacidad.",
+      },
+      {
+        title: "3. ¿Por qué usamos cookies?",
+        content:
+          "- Para que puedas iniciar sesión y usar la app con normalidad.\n- Para recordar tus preferencias (idioma, ubicación, ajustes).\n- Para analizar el uso de la app y mejorar funciones.\n- Para evitar fraudes o usos abusivos.",
+      },
+      {
+        title: "4. ¿Puedo desactivarlas?",
+        content:
+          "Sí. Puedes aceptar, rechazar o configurar tus cookies desde el banner de consentimiento cuando entras por primera vez, o cambiarlas en cualquier momento desde la sección de Configuración de Cookies de la app o tu navegador.\n\nSi desactivas las cookies esenciales, es posible que la app no funcione correctamente.",
+      },
+      {
+        title: "5. Cookies de terceros",
+        content:
+          "Usamos herramientas como:\n- Google Analytics: para analizar el uso de la app.\n- Firebase: para control de errores y rendimiento.\n- OneSignal o similares: para notificaciones push.\n\nEstos proveedores podrían realizar transferencias internacionales. En todos los casos, garantizamos que cumplen con las medidas adecuadas de protección.",
+      },
+      {
+        title: "6. Cambios en esta Política",
+        content:
+          "Podemos actualizar esta política en cualquier momento. Te avisaremos si se realizan cambios importantes.",
+      },
+    ],
+  },
+  nl: {
+    title: "Safinder Cookie Beleid",
+    lastUpdated: "Laatst bijgewerkt: 9 juli 2025",
+    intro:
+      "Bij Safinder gebruiken we cookies om de gebruikerservaring te verbeteren en de goede werking van het platform te garanderen. Dit beleid legt uit welke cookies we gebruiken, waarvoor ze dienen en hoe je ze kunt beheren.",
+    sections: [
+      {
+        title: "1. Wat zijn cookies?",
+        content:
+          "Cookies zijn kleine bestanden die worden opgeslagen op je apparaat (mobiel, tablet of computer) wanneer je onze app gebruikt. Ze stellen ons in staat je apparaat te herkennen, je voorkeuren te onthouden en je navigatie te vergemakkelijken.",
+      },
+      {
+        title: "2. Soorten cookies die we gebruiken",
+        content:
+          "Bij Safinder gebruiken we verschillende soorten cookies, elk met een specifiek doel:\n\n- Essentiële cookies: Deze zijn noodzakelijk voor de basisfunctionaliteit van de app, zoals inloggen of toegang tot bepaalde beveiligde functies.\n- Personalisatie cookies: Ze stellen ons in staat je voorkeuren te onthouden, zoals taal of je geschatte locatie, om je een meer aangepaste ervaring te bieden.\n- Analytische cookies: Ze helpen ons begrijpen hoe gebruikers interacteren met de app, fouten detecteren en onze diensten verbeteren.\n- Cookies van derden: Sommige diensten die we gebruiken, zoals analysetools of push-notificaties, kunnen hun eigen cookies installeren. Deze cookies worden beheerd door derden en hebben hun eigen privacybeleid.",
+      },
+      {
+        title: "3. Waarom gebruiken we cookies?",
+        content:
+          "- Zodat je kunt inloggen en de app normaal kunt gebruiken.\n- Om je voorkeuren te onthouden (taal, locatie, instellingen).\n- Om app-gebruik te analyseren en functies te verbeteren.\n- Om fraude of misbruik te voorkomen.",
+      },
+      {
+        title: "4. Kan ik ze uitschakelen?",
+        content:
+          "Ja. Je kunt cookies accepteren, weigeren of configureren via de toestemmingsbanner wanneer je voor het eerst binnenkomt, of ze op elk moment wijzigen via de Cookie-instellingen sectie van de app of je browser.\n\nAls je essentiële cookies uitschakelt, werkt de app mogelijk niet goed.",
+      },
+      {
+        title: "5. Cookies van derden",
+        content:
+          "We gebruiken tools zoals:\n- Google Analytics: om app-gebruik te analyseren.\n- Firebase: voor foutcontrole en prestaties.\n- OneSignal of vergelijkbaar: voor push-notificaties.\n\nDeze providers kunnen internationale overdrachten uitvoeren. In alle gevallen garanderen we dat ze voldoen aan adequate beschermingsmaatregelen.",
+      },
+      {
+        title: "6. Wijzigingen in dit Beleid",
+        content:
+          "We kunnen dit beleid op elk moment bijwerken. We zullen je op de hoogte stellen als er belangrijke wijzigingen worden aangebracht.",
+      },
+    ],
+  },
+};
 
 export default function PrivacyPage() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [currentLanguage, setCurrentLanguage] = useState<Language>("en");
+
+  const content = cookiesContent[currentLanguage];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 via-yellow-50 to-orange-50">
-            {/* Header */}
-      <header className="px-4 lg:px-6 h-16 flex items-center justify-between border-b border-pink-200/50 bg-white/80 backdrop-blur-sm sticky top-0 z-50">
-        <Link href="/" className="flex items-center">
-          <Image
-            src="/logo.png"
-            alt="Safinder logo"
-            width={100}
-            height={100}
-            className="w-32 object-scale-down"
-          />
-        </Link>
-
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex gap-4 lg:gap-6">
-          <Link
-            href="/"
-            className="text-sm lg:text-base text-pink-700 hover:text-pink-500 transition-colors hover:underline font-bold"
-          >
-            Back home
-          </Link>
-        </nav>
-
-        {/* Mobile Menu Button */}
-        <button
-          className="md:hidden p-2 text-pink-700 hover:text-pink-500 transition-colors"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          aria-label="Toggle mobile menu"
-        >
-          {isMobileMenuOpen ? (
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          ) : (
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
-          )}
-        </button>
-      </header>
-      {/* Mobile Menu Overlay */}
-      {isMobileMenuOpen && (
-        <div className="md:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-40">
-          <div className="bg-white/95 w-full backdrop-blur-sm mt-16 p-6 rounded-b-2xl shadow-xl">
-            <nav className="flex flex-col space-y-4">
-              <Link
-                href="/"
-                className="text-lg text-pink-700 hover:text-pink-500 transition-colors font-bold py-2"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Back home
-              </Link>
-            </nav>
-          </div>
-        </div>
-      )}
-
+      {Navbar(currentLanguage, setCurrentLanguage, (key: string) => {
+        const value =
+          cookiesContent[currentLanguage][
+            key as keyof (typeof cookiesContent)[typeof currentLanguage]
+          ];
+        if (typeof value === "string") {
+          return value;
+        }
+        return key;
+      })}
       {/* Hero Section */}
       <section className="py-16 px-4 text-center">
         <div className="max-w-4xl mx-auto">
           <div className="w-20 h-20 bg-gradient-to-br from-pink-400 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-8">
-            <Shield className="h-10 w-10 text-white" />
+            <Cookie className="h-10 w-10 text-white" />
           </div>
           <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-pink-500 via-yellow-500 to-pink-600 bg-clip-text text-transparent">
-            Privacy Policy
+            {content.title}
           </h1>
           <p className="text-xl text-pink-700 mb-8 max-w-2xl mx-auto">
-            Your privacy and safety are our top priorities. Here's how we
-            protect your personal information and create a safe space for our
-            community.
+            {content.intro}
           </p>
           <p className="text-sm text-pink-600 bg-pink-100 rounded-full px-4 py-2 inline-block">
-            Last updated: January 2025
+            {content.lastUpdated}
           </p>
         </div>
       </section>
@@ -115,10 +168,18 @@ export default function PrivacyPage() {
               <CardContent className="p-6 text-center">
                 <Lock className="h-12 w-12 text-pink-500 mx-auto mb-4" />
                 <h3 className="text-lg font-bold text-pink-700 mb-2">
-                  Data Encryption
+                  {currentLanguage === "en"
+                    ? "Data Encryption"
+                    : currentLanguage === "es"
+                    ? "Encriptación de Datos"
+                    : "Data Encryptie"}
                 </h3>
                 <p className="text-pink-600 text-sm">
-                  All your data is encrypted and securely stored
+                  {currentLanguage === "en"
+                    ? "All your data is encrypted and securely stored"
+                    : currentLanguage === "es"
+                    ? "Todos tus datos están encriptados y almacenados de forma segura"
+                    : "Al je data is versleuteld en veilig opgeslagen"}
                 </p>
               </CardContent>
             </Card>
@@ -127,10 +188,18 @@ export default function PrivacyPage() {
               <CardContent className="p-6 text-center">
                 <Eye className="h-12 w-12 text-yellow-500 mx-auto mb-4" />
                 <h3 className="text-lg font-bold text-yellow-700 mb-2">
-                  No Data Selling
+                  {currentLanguage === "en"
+                    ? "No Data Selling"
+                    : currentLanguage === "es"
+                    ? "No Vendemos Datos"
+                    : "Geen Data Verkoop"}
                 </h3>
                 <p className="text-yellow-600 text-sm">
-                  We never sell your personal information to third parties
+                  {currentLanguage === "en"
+                    ? "We never sell your personal information to third parties"
+                    : currentLanguage === "es"
+                    ? "Nunca vendemos tu información personal a terceros"
+                    : "We verkopen nooit je persoonlijke informatie aan derden"}
                 </p>
               </CardContent>
             </Card>
@@ -139,10 +208,18 @@ export default function PrivacyPage() {
               <CardContent className="p-6 text-center">
                 <Users className="h-12 w-12 text-orange-500 mx-auto mb-4" />
                 <h3 className="text-lg font-bold text-orange-700 mb-2">
-                  Community First
+                  {currentLanguage === "en"
+                    ? "Community First"
+                    : currentLanguage === "es"
+                    ? "Comunidad Primero"
+                    : "Gemeenschap Eerst"}
                 </h3>
                 <p className="text-orange-600 text-sm">
-                  Built by and for the sapphic community
+                  {currentLanguage === "en"
+                    ? "Built by and for the sapphic community"
+                    : currentLanguage === "es"
+                    ? "Construido por y para la comunidad sáfica"
+                    : "Gebouwd door en voor de saffische gemeenschap"}
                 </p>
               </CardContent>
             </Card>
@@ -150,175 +227,55 @@ export default function PrivacyPage() {
         </div>
       </section>
 
-      {/* Main Privacy Content */}
+      {/* Main Content */}
       <section className="py-12 px-4">
         <div className="max-w-4xl mx-auto">
           <div className="space-y-8">
-            <Card className="bg-white/80 backdrop-blur-sm border-2 border-pink-200">
-              <CardHeader>
-                <CardTitle className="text-2xl text-pink-700 flex items-center">
-                  <MessageCircle className="h-6 w-6 mr-3" />
-                  Information We Collect
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4 text-pink-700">
-                <div>
-                  <h4 className="font-semibold mb-2">Profile Information</h4>
-                  <p className="text-pink-600 leading-relaxed">
-                    We collect the information you provide when creating your
-                    profile, including your name, age, location, photos, and
-                    bio. This information is used to create your profile and
-                    help you connect with compatible matches.
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-semibold mb-2">
-                    Weekly Question Responses
-                  </h4>
-                  <p className="text-pink-600 leading-relaxed">
-                    Your responses to our weekly questions are the heart of our
-                    matching algorithm. These responses help us understand your
-                    personality, values, and preferences to find you compatible
-                    matches.
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-semibold mb-2">Usage Data</h4>
-                  <p className="text-pink-600 leading-relaxed">
-                    We collect information about how you use the app, including
-                    which profiles you view, who you match with, and your
-                    messaging activity. This helps us improve our matching
-                    algorithm and user experience.
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-white/80 backdrop-blur-sm border-2 border-yellow-200">
-              <CardHeader>
-                <CardTitle className="text-2xl text-yellow-700 flex items-center">
-                  <Shield className="h-6 w-6 mr-3" />
-                  How We Use Your Information
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4 text-yellow-700">
-                <div>
-                  <h4 className="font-semibold mb-2">Matching & Connections</h4>
-                  <p className="text-yellow-600 leading-relaxed">
-                    We use your profile information and question responses to
-                    calculate compatibility percentages and suggest potential
-                    matches. Our algorithm is designed to help you find
-                    meaningful connections.
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-semibold mb-2">Safety & Security</h4>
-                  <p className="text-yellow-600 leading-relaxed">
-                    We use your information to verify profiles, prevent fraud,
-                    and maintain a safe community environment. This includes
-                    monitoring for inappropriate behavior and enforcing our
-                    community guidelines.
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-semibold mb-2">App Improvement</h4>
-                  <p className="text-yellow-600 leading-relaxed">
-                    We analyze usage patterns to improve our matching algorithm,
-                    develop new features, and enhance the overall user
-                    experience. All analysis is done with aggregated, anonymized
-                    data.
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-white/80 backdrop-blur-sm border-2 border-orange-200">
-              <CardHeader>
-                <CardTitle className="text-2xl text-orange-700 flex items-center">
-                  <Lock className="h-6 w-6 mr-3" />
-                  Data Protection & Security
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4 text-orange-700">
-                <div>
-                  <h4 className="font-semibold mb-2">Encryption</h4>
-                  <p className="text-orange-600 leading-relaxed">
-                    All data is encrypted both in transit and at rest using
-                    industry-standard encryption protocols. Your personal
-                    information is protected with the highest level of security.
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-semibold mb-2">Access Controls</h4>
-                  <p className="text-orange-600 leading-relaxed">
-                    Access to your personal data is strictly limited to
-                    authorized personnel who need it to provide our services.
-                    All access is logged and monitored.
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-semibold mb-2">Data Retention</h4>
-                  <p className="text-orange-600 leading-relaxed">
-                    We only keep your data for as long as necessary to provide
-                    our services. You can delete your account and all associated
-                    data at any time through the app settings.
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-white/80 backdrop-blur-sm border-2 border-pink-200">
-              <CardHeader>
-                <CardTitle className="text-2xl text-pink-700 flex items-center">
-                  <Users className="h-6 w-6 mr-3" />
-                  Your Rights & Controls
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4 text-pink-700">
-                <div>
-                  <h4 className="font-semibold mb-2">Profile Control</h4>
-                  <p className="text-pink-600 leading-relaxed">
-                    You have complete control over your profile information and
-                    can update, modify, or delete any information at any time
-                    through the app settings.
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-semibold mb-2">Data Access</h4>
-                  <p className="text-pink-600 leading-relaxed">
-                    You can request a copy of all the personal data we have
-                    about you. We'll provide this information in a readable
-                    format within 30 days of your request.
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-semibold mb-2">Account Deletion</h4>
-                  <p className="text-pink-600 leading-relaxed">
-                    You can permanently delete your account and all associated
-                    data at any time. Once deleted, your information cannot be
-                    recovered, and you'll be removed from all matches and
-                    conversations.
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
+            {content.sections.map((section, index) => (
+              <Card
+                key={index}
+                className="bg-white/80 backdrop-blur-sm border-2 border-pink-200"
+              >
+                <CardHeader>
+                  <CardTitle className="text-2xl text-pink-700 flex items-center">
+                    <Cookie className="h-6 w-6 mr-3" />
+                    {section.title}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="text-pink-700">
+                  <div className="text-pink-600 leading-relaxed whitespace-pre-line">
+                    {section.content}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
 
             <section id="contact">
               <Card className="bg-gradient-to-r from-pink-100 to-yellow-100 border-2 border-pink-300">
                 <CardContent className="p-8 text-center">
                   <h3 className="text-2xl font-bold text-pink-700 mb-4">
-                    Questions About Privacy?
+                    {currentLanguage === "en"
+                      ? "Questions About Privacy?"
+                      : currentLanguage === "es"
+                      ? "¿Preguntas sobre Privacidad?"
+                      : "Vragen over Privacy?"}
                   </h3>
                   <p className="text-pink-600 mb-6 leading-relaxed">
-                    We're committed to transparency and are here to answer any
-                    questions about how we handle your data. Your trust is
-                    essential to our community.
+                    {currentLanguage === "en"
+                      ? "We're committed to transparency and are here to answer any questions about how we handle your data. Your trust is essential to our community."
+                      : currentLanguage === "es"
+                      ? "Estamos comprometidas con la transparencia y estamos aquí para responder cualquier pregunta sobre cómo manejamos tus datos. Tu confianza es esencial para nuestra comunidad."
+                      : "We zijn toegewijd aan transparantie en zijn hier om vragen te beantwoorden over hoe we je data behandelen. Je vertrouwen is essentieel voor onze gemeenschap."}
                   </p>
                   <a
-                    href="mailto:admin@safinder.com"
-                    className="bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white px-8 py-3 rounded-full"
+                    href="mailto:admin@safinder.es"
+                    className="bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white px-8 py-3 rounded-full inline-block transition-all"
                   >
-                    Contact Privacy Team
+                    {currentLanguage === "en"
+                      ? "Contact Privacy Team"
+                      : currentLanguage === "es"
+                      ? "Contactar Equipo de Privacidad"
+                      : "Contact Privacy Team"}
                   </a>
                 </CardContent>
               </Card>
@@ -341,21 +298,44 @@ export default function PrivacyPage() {
 
           <div className="flex flex-wrap justify-center gap-6 mb-8">
             <Link href="/" className="hover:text-white transition-colors">
-              Home
+              Safinder
             </Link>
             <Link
               href="/privacy"
               className="hover:text-white transition-colors"
             >
-              Privacy Policy
+              {currentLanguage === "en"
+                ? "Privacy Policy"
+                : currentLanguage === "es"
+                ? "Política de Privacidad"
+                : "Privacybeleid"}
             </Link>
-             <Link href="/privacy/#contact" className="hover:text-white transition-colors">
-              Contact
+            <Link href="/terms" className="hover:text-white transition-colors">
+              {currentLanguage === "en"
+                ? "Terms & Conditions"
+                : currentLanguage === "es"
+                ? "Términos y Condiciones"
+                : "Algemene Voorwaarden"}
+            </Link>
+            <Link
+              href="/privacy/#contact"
+              className="hover:text-white transition-colors"
+            >
+              {currentLanguage === "en"
+                ? "Contact"
+                : currentLanguage === "es"
+                ? "Contacto"
+                : "Contact"}
             </Link>
           </div>
 
           <p className="text-pink-300">
-            © 2025 Safinder. Made with 💖 for the sapphic community.
+            © 2025 Safinder.{" "}
+            {currentLanguage === "en"
+              ? "Made with 💖 for the sapphic community."
+              : currentLanguage === "es"
+              ? "Hecho con 💖 para la comunidad sáfica."
+              : "Gemaakt met 💖 voor de saffische gemeenschap."}
           </p>
         </div>
       </footer>
