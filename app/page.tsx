@@ -111,7 +111,6 @@ export default function HomePage() {
           )}
         </button>
       </header>
-      {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
         <div className="md:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-40">
           <div className="bg-white/95 w-full backdrop-blur-sm mt-16 p-6 rounded-b-2xl shadow-xl">
