@@ -68,6 +68,17 @@ export default function HomePage() {
               ? "Política de Privacidad"
               : "Privacybeleid"}
           </Link>
+          <Link
+            href="/delete-account"
+            className="text-sm lg:text-base hover:underline font-bold text-pink-700 hover:text-pink-500 transition-colors"
+          >
+            {currentLanguage === "en"
+              ? "Delete Account"
+              : currentLanguage === "es"
+              ? "Eliminar Cuenta"
+              : "Account Verwijderen"}
+          </Link>
+
           <LanguageSelector
             currentLanguage={currentLanguage}
             onLanguageChange={setCurrentLanguage}
@@ -143,6 +154,17 @@ export default function HomePage() {
                   : currentLanguage === "es"
                   ? "Política de Privacidad"
                   : "Privacybeleid"}
+              </Link>
+              <Link
+                href="/delete-account"
+                className="text-lg text-pink-700 hover:text-pink-500 transition-colors font-bold py-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {currentLanguage === "en"
+                  ? "Delete Account"
+                  : currentLanguage === "es"
+                  ? "Eliminar Cuenta"
+                  : "Account Verwijderen"}
               </Link>
               <div className="pt-2">
                 <LanguageSelector

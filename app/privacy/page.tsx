@@ -132,16 +132,15 @@ export default function PrivacyPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 via-yellow-50 to-orange-50">
-      {Navbar(currentLanguage, setCurrentLanguage, (key: string) => {
-        const value =
-          cookiesContent[currentLanguage][
-            key as keyof (typeof cookiesContent)[typeof currentLanguage]
-          ];
-        if (typeof value === "string") {
-          return value;
-        }
-        return key;
-      })}
+      <Navbar
+        currentLanguage={currentLanguage}
+        setCurrentLanguage={setCurrentLanguage}
+        t={(key) => {
+          const value = cookiesContent[currentLanguage][key as keyof typeof cookiesContent[typeof currentLanguage]];
+          return typeof value === "string" ? value : key;
+        }}
+      />
+
       {/* Hero Section */}
       <section className="py-16 px-4 text-center">
         <div className="max-w-4xl mx-auto">
@@ -171,15 +170,15 @@ export default function PrivacyPage() {
                   {currentLanguage === "en"
                     ? "Data Encryption"
                     : currentLanguage === "es"
-                    ? "Encriptación de Datos"
-                    : "Data Encryptie"}
+                      ? "Encriptación de Datos"
+                      : "Data Encryptie"}
                 </h3>
                 <p className="text-pink-600 text-sm">
                   {currentLanguage === "en"
                     ? "All your data is encrypted and securely stored"
                     : currentLanguage === "es"
-                    ? "Todos tus datos están encriptados y almacenados de forma segura"
-                    : "Al je data is versleuteld en veilig opgeslagen"}
+                      ? "Todos tus datos están encriptados y almacenados de forma segura"
+                      : "Al je data is versleuteld en veilig opgeslagen"}
                 </p>
               </CardContent>
             </Card>
@@ -191,15 +190,15 @@ export default function PrivacyPage() {
                   {currentLanguage === "en"
                     ? "No Data Selling"
                     : currentLanguage === "es"
-                    ? "No Vendemos Datos"
-                    : "Geen Data Verkoop"}
+                      ? "No Vendemos Datos"
+                      : "Geen Data Verkoop"}
                 </h3>
                 <p className="text-yellow-600 text-sm">
                   {currentLanguage === "en"
                     ? "We never sell your personal information to third parties"
                     : currentLanguage === "es"
-                    ? "Nunca vendemos tu información personal a terceros"
-                    : "We verkopen nooit je persoonlijke informatie aan derden"}
+                      ? "Nunca vendemos tu información personal a terceros"
+                      : "We verkopen nooit je persoonlijke informatie aan derden"}
                 </p>
               </CardContent>
             </Card>
@@ -211,15 +210,15 @@ export default function PrivacyPage() {
                   {currentLanguage === "en"
                     ? "Community First"
                     : currentLanguage === "es"
-                    ? "Comunidad Primero"
-                    : "Gemeenschap Eerst"}
+                      ? "Comunidad Primero"
+                      : "Gemeenschap Eerst"}
                 </h3>
                 <p className="text-orange-600 text-sm">
                   {currentLanguage === "en"
                     ? "Built by and for the sapphic community"
                     : currentLanguage === "es"
-                    ? "Construido por y para la comunidad sáfica"
-                    : "Gebouwd door en voor de saffische gemeenschap"}
+                      ? "Construido por y para la comunidad sáfica"
+                      : "Gebouwd door en voor de saffische gemeenschap"}
                 </p>
               </CardContent>
             </Card>
@@ -257,15 +256,15 @@ export default function PrivacyPage() {
                     {currentLanguage === "en"
                       ? "Questions About Privacy?"
                       : currentLanguage === "es"
-                      ? "¿Preguntas sobre Privacidad?"
-                      : "Vragen over Privacy?"}
+                        ? "¿Preguntas sobre Privacidad?"
+                        : "Vragen over Privacy?"}
                   </h3>
                   <p className="text-pink-600 mb-6 leading-relaxed">
                     {currentLanguage === "en"
                       ? "We're committed to transparency and are here to answer any questions about how we handle your data. Your trust is essential to our community."
                       : currentLanguage === "es"
-                      ? "Estamos comprometidas con la transparencia y estamos aquí para responder cualquier pregunta sobre cómo manejamos tus datos. Tu confianza es esencial para nuestra comunidad."
-                      : "We zijn toegewijd aan transparantie en zijn hier om vragen te beantwoorden over hoe we je data behandelen. Je vertrouwen is essentieel voor onze gemeenschap."}
+                        ? "Estamos comprometidas con la transparencia y estamos aquí para responder cualquier pregunta sobre cómo manejamos tus datos. Tu confianza es esencial para nuestra comunidad."
+                        : "We zijn toegewijd aan transparantie en zijn hier om vragen te beantwoorden over hoe we je data behandelen. Je vertrouwen is essentieel voor onze gemeenschap."}
                   </p>
                   <a
                     href="mailto:admin@safinder.es"
@@ -274,8 +273,8 @@ export default function PrivacyPage() {
                     {currentLanguage === "en"
                       ? "Contact Privacy Team"
                       : currentLanguage === "es"
-                      ? "Contactar Equipo de Privacidad"
-                      : "Contact Privacy Team"}
+                        ? "Contactar Equipo de Privacidad"
+                        : "Contact Privacy Team"}
                   </a>
                 </CardContent>
               </Card>
@@ -307,15 +306,15 @@ export default function PrivacyPage() {
               {currentLanguage === "en"
                 ? "Privacy Policy"
                 : currentLanguage === "es"
-                ? "Política de Privacidad"
-                : "Privacybeleid"}
+                  ? "Política de Privacidad"
+                  : "Privacybeleid"}
             </Link>
             <Link href="/terms" className="hover:text-white transition-colors">
               {currentLanguage === "en"
                 ? "Terms & Conditions"
                 : currentLanguage === "es"
-                ? "Términos y Condiciones"
-                : "Algemene Voorwaarden"}
+                  ? "Términos y Condiciones"
+                  : "Algemene Voorwaarden"}
             </Link>
             <Link
               href="/privacy/#contact"
@@ -324,8 +323,8 @@ export default function PrivacyPage() {
               {currentLanguage === "en"
                 ? "Contact"
                 : currentLanguage === "es"
-                ? "Contacto"
-                : "Contact"}
+                  ? "Contacto"
+                  : "Contact"}
             </Link>
           </div>
 
@@ -334,8 +333,8 @@ export default function PrivacyPage() {
             {currentLanguage === "en"
               ? "Made with 💖 for the sapphic community."
               : currentLanguage === "es"
-              ? "Hecho con 💖 para la comunidad sáfica."
-              : "Gemaakt met 💖 voor de saffische gemeenschap."}
+                ? "Hecho con 💖 para la comunidad sáfica."
+                : "Gemaakt met 💖 voor de saffische gemeenschap."}
           </p>
         </div>
       </footer>

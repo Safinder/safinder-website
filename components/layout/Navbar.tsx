@@ -4,16 +4,17 @@ import Link from "next/link";
 import Image from "next/image";
 import { LanguageSelector } from "@/components/language-selector";
 import {
-  translations,
   type Language,
   type TranslationKey,
 } from "@/lib/translations";
 
-export default function Navbar(
-  currentLanguage: Language,
-  setCurrentLanguage: (lang: Language) => void,
-  t: (key: TranslationKey) => string
-) {
+type NavbarProps = {
+  currentLanguage: Language;
+  setCurrentLanguage: (lang: Language) => void;
+  t: (key: TranslationKey) => string;
+};
+
+export default function Navbar({ currentLanguage, setCurrentLanguage, t }: NavbarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
@@ -56,6 +57,16 @@ export default function Navbar(
               : currentLanguage === "es"
               ? "Política de Privacidad"
               : "Privacybeleid"}
+          </Link>
+          <Link
+            href="/delete-account"
+            className="text-sm lg:text-base hover:underline font-bold text-pink-700 hover:text-pink-500 transition-colors"
+          >
+            {currentLanguage === "en"
+              ? "Delete Account"
+              : currentLanguage === "es"
+              ? "Eliminar Cuenta"
+              : "Account Verwijderen"}
           </Link>
           <LanguageSelector
             currentLanguage={currentLanguage}
