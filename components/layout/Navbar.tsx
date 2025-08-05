@@ -19,14 +19,14 @@ export default function Navbar({ currentLanguage, setCurrentLanguage, t }: Navba
 
   return (
     <div>
-      <header className="px-4 lg:px-6 h-16 flex items-center justify-between border-b border-pink-200/50 bg-white/80 backdrop-blur-sm sticky top-0 z-50">
+      <header className="p- lg:p-6 h-16 flex items-center justify-between border-b border-pink-200/50 bg-white/80 backdrop-blur-sm sticky top-0 z-50">
         <Link href="/" className="flex items-center">
           <Image
             src="/logo.png"
             alt="Safinder logo"
             width={100}
             height={100}
-            className="w-32 object-scale-down"
+            className="w-32 object-scale-down py-4"
           />
         </Link>
 

@@ -29,14 +29,14 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 via-yellow-50 to-orange-50">
       {/* Header */}
-      <header className="px-4 lg:px-6 h-16 flex items-center justify-between border-b border-pink-200/50 bg-white/80 backdrop-blur-sm sticky top-0 z-50">
+      <header className="p-4 lg:p-6 h-16 flex items-center justify-between border-b border-pink-200/50 bg-white/80 backdrop-blur-sm sticky top-0 z-50">
         <Link href="/" className="flex items-center">
           <Image
             src="/logo.png"
             alt="Safinder logo"
             width={100}
             height={100}
-            className="w-32 object-scale-down"
+            className="w-28 object-scale-down py-4"
           />
         </Link>
 
@@ -232,7 +232,7 @@ export default function HomePage() {
               </div>
 
               {/* Stats or additional info */}
-              <div className="flex flex-wrap gap-8 pt-8">
+              <div className="flex  gap-8 pt-8 mx-auto">
                 <div className="text-center">
                   <div className="text-3xl font-bold text-pink-600">100%</div>
                   <div className="text-pink-500 text-sm">
@@ -465,7 +465,7 @@ export default function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 px-4 bg-pink-900 text-pink-100 mt-16">
+      <footer className="py-12 px-4 bg-pink-900 text-pink-100">
         <div className="max-w-4xl mx-auto text-center">
           <div className="flex items-center justify-center space-x-2 mb-6">
             <Image

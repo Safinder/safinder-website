@@ -320,7 +320,7 @@ export default function TermsPage() {
 
       {/* Main Content */}
       <section className="py-12 px-4">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl mx-auto ">
           <div className="space-y-8">
             {content.sections.map((section, index) => (
               <Card
