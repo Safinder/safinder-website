@@ -53,7 +53,7 @@ export default function HomePage() {
             className="text-sm lg:text-base hover:underline font-bold text-pink-700 hover:text-pink-500 transition-colors"
           >
             {currentLanguage === "en"
-              ? "Terms and Conditions"
+              ? "Termsqqqq and Conditions"
               : currentLanguage === "es"
               ? "Términos y Condiciones"
               : "Algemene Voorwaarden"}
