@@ -223,16 +223,15 @@ export default function TermsPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 via-yellow-50 to-orange-50">
-      {Navbar(currentLanguage, setCurrentLanguage, (key: string) => {
-        const value =
-          termsContent[currentLanguage][
-            key as keyof (typeof termsContent)[typeof currentLanguage]
-          ];
-        if (typeof value === "string") {
-          return value;
-        }
-        return key;
-      })}
+      <Navbar
+        currentLanguage={currentLanguage}
+        setCurrentLanguage={setCurrentLanguage}
+        t={(key) => {
+          const value = termsContent[currentLanguage][key as keyof typeof termsContent[typeof currentLanguage]];
+          return typeof value === "string" ? value : key;
+        }}
+      />
+
 
       {/* Hero Section */}
       <section className="py-16 px-4 text-center">
@@ -263,15 +262,15 @@ export default function TermsPage() {
                   {currentLanguage === "en"
                     ? "Safe Environment"
                     : currentLanguage === "es"
-                    ? "Entorno Seguro"
-                    : "Veilige Omgeving"}
+                      ? "Entorno Seguro"
+                      : "Veilige Omgeving"}
                 </h3>
                 <p className="text-pink-600 text-sm">
                   {currentLanguage === "en"
                     ? "Clear rules for a respectful community"
                     : currentLanguage === "es"
-                    ? "Reglas claras para una comunidad respetuosa"
-                    : "Duidelijke regels voor een respectvolle gemeenschap"}
+                      ? "Reglas claras para una comunidad respetuosa"
+                      : "Duidelijke regels voor een respectvolle gemeenschap"}
                 </p>
               </CardContent>
             </Card>
@@ -283,15 +282,15 @@ export default function TermsPage() {
                   {currentLanguage === "en"
                     ? "Community Guidelines"
                     : currentLanguage === "es"
-                    ? "Normas Comunitarias"
-                    : "Gemeenschapsrichtlijnen"}
+                      ? "Normas Comunitarias"
+                      : "Gemeenschapsrichtlijnen"}
                 </h3>
                 <p className="text-yellow-600 text-sm">
                   {currentLanguage === "en"
                     ? "Standards for positive interactions"
                     : currentLanguage === "es"
-                    ? "Estándares para interacciones positivas"
-                    : "Standaarden voor positieve interacties"}
+                      ? "Estándares para interacciones positivas"
+                      : "Standaarden voor positieve interacties"}
                 </p>
               </CardContent>
             </Card>
@@ -303,15 +302,15 @@ export default function TermsPage() {
                   {currentLanguage === "en"
                     ? "Your Responsibilities"
                     : currentLanguage === "es"
-                    ? "Tus Responsabilidades"
-                    : "Jouw Verantwoordelijkheden"}
+                      ? "Tus Responsabilidades"
+                      : "Jouw Verantwoordelijkheden"}
                 </h3>
                 <p className="text-orange-600 text-sm">
                   {currentLanguage === "en"
                     ? "What we expect from our users"
                     : currentLanguage === "es"
-                    ? "Lo que esperamos de nuestras usuarias"
-                    : "Wat we verwachten van onze gebruikers"}
+                      ? "Lo que esperamos de nuestras usuarias"
+                      : "Wat we verwachten van onze gebruikers"}
                 </p>
               </CardContent>
             </Card>
@@ -348,15 +347,15 @@ export default function TermsPage() {
                   {currentLanguage === "en"
                     ? "Questions About These Terms?"
                     : currentLanguage === "es"
-                    ? "¿Preguntas sobre estos Términos?"
-                    : "Vragen over deze Voorwaarden?"}
+                      ? "¿Preguntas sobre estos Términos?"
+                      : "Vragen over deze Voorwaarden?"}
                 </h3>
                 <p className="text-pink-600 mb-6 leading-relaxed">
                   {currentLanguage === "en"
                     ? "If you have any questions about these terms and conditions, please don't hesitate to contact us. We're here to help!"
                     : currentLanguage === "es"
-                    ? "Si tienes alguna pregunta sobre estos términos y condiciones, no dudes en contactarnos. ¡Estamos aquí para ayudar!"
-                    : "Als je vragen hebt over deze algemene voorwaarden, aarzel dan niet om contact met ons op te nemen. We zijn er om te helpen!"}
+                      ? "Si tienes alguna pregunta sobre estos términos y condiciones, no dudes en contactarnos. ¡Estamos aquí para ayudar!"
+                      : "Als je vragen hebt over deze algemene voorwaarden, aarzel dan niet om contact met ons op te nemen. We zijn er om te helpen!"}
                 </p>
                 <a
                   href="mailto:admin@safinder.es"
@@ -365,8 +364,8 @@ export default function TermsPage() {
                   {currentLanguage === "en"
                     ? "Contact Support"
                     : currentLanguage === "es"
-                    ? "Contactar Soporte"
-                    : "Contact Ondersteuning"}
+                      ? "Contactar Soporte"
+                      : "Contact Ondersteuning"}
                 </a>
               </CardContent>
             </Card>
@@ -397,15 +396,15 @@ export default function TermsPage() {
               {currentLanguage === "en"
                 ? "Privacy Policy"
                 : currentLanguage === "es"
-                ? "Política de Privacidad"
-                : "Privacybeleid"}
+                  ? "Política de Privacidad"
+                  : "Privacybeleid"}
             </Link>
             <Link href="/terms" className="hover:text-white transition-colors">
               {currentLanguage === "en"
                 ? "Terms & Conditions"
                 : currentLanguage === "es"
-                ? "Términos y Condiciones"
-                : "Algemene Voorwaarden"}
+                  ? "Términos y Condiciones"
+                  : "Algemene Voorwaarden"}
             </Link>
             <Link
               href="/privacy/#contact"
@@ -414,8 +413,8 @@ export default function TermsPage() {
               {currentLanguage === "en"
                 ? "Contact"
                 : currentLanguage === "es"
-                ? "Contacto"
-                : "Contact"}
+                  ? "Contacto"
+                  : "Contact"}
             </Link>
           </div>
 
@@ -424,8 +423,8 @@ export default function TermsPage() {
             {currentLanguage === "en"
               ? "Made with 💖 for the sapphic community."
               : currentLanguage === "es"
-              ? "Hecho con 💖 para la comunidad sáfica."
-              : "Gemaakt met 💖 voor de saffische gemeenschap."}
+                ? "Hecho con 💖 para la comunidad sáfica."
+                : "Gemaakt met 💖 voor de saffische gemeenschap."}
           </p>
         </div>
       </footer>
