@@ -10,8 +10,8 @@ export const translations = {
     heroTitle: "Find Your Perfect Match",
     heroDescription:
       "The dating app designed exclusively for lesbian women and non-binary individuals. Connect through meaningful weekly questions and discover your ideal match with Safinder.",
-    soonIOS: "Soon on iOS",
-    soonAndroid: "Soon on Android",
+    soonIOS: "Available on iOS",
+    soonAndroid: "Available on Android",
     madeByWomen: "Made by women",
     matchSuccess: "Match Success",
     safeCommunity: "Safe Community",
@@ -88,8 +88,8 @@ export const translations = {
     heroTitle: "Encuentra Tu Pareja Perfecta",
     heroDescription:
       "La aplicación de citas diseñada exclusivamente para mujeres lesbianas y personas no binarias. Conéctate a través de preguntas semanales significativas y descubre tu pareja ideal con Safinder.",
-    soonIOS: "Pronto en iOS",
-    soonAndroid: "Pronto en Android",
+    soonIOS: "Disponible en iOS",
+    soonAndroid: "Disponible en Android",
     madeByWomen: "Hecho por mujeres",
     matchSuccess: "Éxito de Matches",
     safeCommunity: "Comunidad Segura",
@@ -168,8 +168,8 @@ export const translations = {
     heroTitle: "Vind Je Perfecte Match",
     heroDescription:
       "De dating app exclusief ontworpen voor lesbische vrouwen en non-binaire personen. Verbind door betekenisvolle wekelijkse vragen en ontdek je ideale match met Safinder.",
-    soonIOS: "Binnenkort op iOS",
-    soonAndroid: "Binnenkort op Android",
+    soonIOS: "Beschikbaar op iOS",
+    soonAndroid: "Beschikbaar op Android",
     madeByWomen: "Gemaakt door vrouwen",
     matchSuccess: "Match Succes",
     safeCommunity: "Veilige Gemeenschap",
