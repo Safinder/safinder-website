@@ -74,7 +74,7 @@ const termsContent = {
       {
         title: "12. Contact",
         content:
-          "For questions about these terms, contact us at: admin@safinder.es",
+          "For questions about these terms, contact us at: soporte@safinder.es",
       },
     ],
   },
@@ -142,7 +142,7 @@ const termsContent = {
       {
         title: "12. Contacto",
         content:
-          "Para preguntas sobre estos términos, contáctanos en: admin@safinder.es",
+          "Para preguntas sobre estos términos, contáctanos en: soporte@safinder.es",
       },
     ],
   },
@@ -210,7 +210,7 @@ const termsContent = {
       {
         title: "12. Contact",
         content:
-          "Voor vragen over deze voorwaarden, neem contact met ons op via: admin@safinder.es",
+          "Voor vragen over deze voorwaarden, neem contact met ons op via: soporte@safinder.es",
       },
     ],
   },
@@ -358,7 +358,7 @@ export default function TermsPage() {
                       : "Als je vragen hebt over deze algemene voorwaarden, aarzel dan niet om contact met ons op te nemen. We zijn er om te helpen!"}
                 </p>
                 <a
-                  href="mailto:admin@safinder.es"
+                  href="mailto:soporte@safinder.es"
                   className="bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white px-8 py-3 rounded-full inline-block transition-all"
                 >
                   {currentLanguage === "en"

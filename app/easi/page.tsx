@@ -28,7 +28,7 @@ const easiContent = {
         title: "What You Can Do",
         content: `If you witness or suspect any form of child exploitation or abuse on Safinder:
 - Report the user or content through the app’s built-in tool.
-- Contact our support team at admin@safinder.es.`
+- Contact our support team at soporte@safinder.es.`
       },
       {
         title: "Legal Framework",
@@ -36,7 +36,7 @@ const easiContent = {
       },
       {
         title: "Contact",
-        content: "For concerns or urgent reports related to child exploitation or abuse, please email us at: admin@safinder.es"
+        content: "For concerns or urgent reports related to child exploitation or abuse, please email us at: soporte@safinder.es"
       }
     ]
   },
@@ -59,7 +59,7 @@ const easiContent = {
         title: "Qué puedes hacer",
         content: `Si presencias o sospechas cualquier forma de explotación o abuso sexual infantil en Safinder:
 - Utiliza la herramienta de reporte integrada en la app.
-- O escríbenos a admin@safinder.es.`
+- O escríbenos a soporte@safinder.es.`
       },
       {
         title: "Marco Legal",
@@ -67,7 +67,7 @@ const easiContent = {
       },
       {
         title: "Contacto",
-        content: "Para dudas o denuncias urgentes relacionadas con la explotación o el abuso sexual infantil, escribe a: admin@safinder.es"
+        content: "Para dudas o denuncias urgentes relacionadas con la explotación o el abuso sexual infantil, escribe a: soporte@safinder.es"
       }
     ]
   },
@@ -90,7 +90,7 @@ const easiContent = {
         title: "Wat jij kunt doen",
         content: `Als je enige vorm van kinderuitbuiting of -misbruik op Safinder vermoedt of waarneemt:
 - Gebruik het meldsysteem in de app.
-- Of mail ons via admin@safinder.es.`
+- Of mail ons via soporte@safinder.es.`
       },
       {
         title: "Wettelijk Kader",
@@ -98,7 +98,7 @@ const easiContent = {
       },
       {
         title: "Contact",
-        content: "Voor vragen of dringende meldingen met betrekking tot kinderuitbuiting of -misbruik: admin@safinder.es"
+        content: "Voor vragen of dringende meldingen met betrekking tot kinderuitbuiting of -misbruik: soporte@safinder.es"
       }
     ]
   }
