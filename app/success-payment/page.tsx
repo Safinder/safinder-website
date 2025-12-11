@@ -8,25 +8,22 @@ export default function SuccessPaymentPage() {
         {/* Success Card */}
         <div className="bg-white rounded-3xl shadow-lg p-8 text-center">
           {/* Success Icon */}
-          <div className="flex justify-center mb-6">
-            <div className="relative">
-              <div className="absolute inset-0 bg-success-100 rounded-full blur-xl opacity-50"></div>
-              <div className="relative bg-success-100 rounded-full p-4">
+          <div className="flex justify-center mb-2">
+              <div className="relative bg-green-100 rounded-full p-4">
                 <CheckCircle className="w-16 h-16" style={{ color: '#12B76A' }} strokeWidth={2.5} />
               </div>
-            </div>
           </div>
 
           {/* Success Message */}
           <h1 className="text-3xl font-bold mb-2" style={{ color: '#101828' }}>
-            Payment Successful!
+            ¡Éxito!
           </h1>
           <p className="text-base mb-8" style={{ color: '#667085' }}>
-            Your transaction has been completed successfully
+            Tu transacción se ha completado con éxito
           </p>
 
           {/* Payment Details */}
-          <div className="rounded-2xl p-6 mb-6" style={{ backgroundColor: '#F9FAFB' }}>
+          {/* <div className="rounded-2xl p-6 mb-6" style={{ backgroundColor: '#F9FAFB' }}>
             <div className="space-y-4">
               <div className="flex justify-between items-center">
                 <span className="font-medium" style={{ color: '#667085' }}>Amount Paid</span>
@@ -46,10 +43,10 @@ export default function SuccessPaymentPage() {
                 <span className="text-sm" style={{ color: '#344054' }}>•••• 4242</span>
               </div>
             </div>
-          </div>
+          </div> */}
 
           {/* Action Buttons */}
-          <div className="space-y-3">
+          {/* <div className="space-y-3">
             <button className="w-full rounded-xl py-4 px-6 font-semibold text-white flex items-center justify-center gap-2 transition-all hover:opacity-90" 
                     style={{ backgroundColor: '#ff7db0' }}>
               Download Receipt
@@ -61,19 +58,19 @@ export default function SuccessPaymentPage() {
               Email Receipt
               <Mail className="w-5 h-5" />
             </button>
-          </div>
+          </div> */}
 
           {/* Continue Button */}
-          <button className="w-full mt-6 text-base font-medium flex items-center justify-center gap-2 transition-all hover:gap-3" 
+          {/* <button className="w-full mt-6 text-base font-medium flex items-center justify-center gap-2 transition-all hover:gap-3" 
                   style={{ color: '#ff7db0' }}>
             Continue Shopping
             <ArrowRight className="w-5 h-5" />
-          </button>
+          </button> */}
         </div>
 
         {/* Support Text */}
         <p className="text-center text-sm mt-6" style={{ color: '#98A2B3' }}>
-          Need help? <span className="font-medium" style={{ color: '#ff7db0' }}>Contact Support</span>
+          ¿Necesitas ayuda? <a href="mailto:soporte@safinder.es" className="font-medium" style={{ color: '#ff7db0' }}>Contacta Soporte</a>
         </p>
       </div>
     </div>
