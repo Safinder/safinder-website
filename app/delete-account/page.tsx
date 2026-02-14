@@ -1,5 +1,5 @@
 "use client";
-
+export const dynamic = "force-dynamic";
 import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import {
   signInWithEmailAndPassword,
