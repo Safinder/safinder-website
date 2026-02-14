@@ -8,7 +8,7 @@ export default function SuccessPaymentPage() {
         {/* Success Card */}
         <div className="bg-white rounded-3xl shadow-lg p-8 text-center">
           {/* Success Icon */}
-          <div className="flex justify-center mb-2">
+          <div className="flex justify-center mb-6">
               <div className="relative bg-green-100 rounded-full p-4">
                 <CheckCircle className="w-16 h-16" style={{ color: '#12B76A' }} strokeWidth={2.5} />
               </div>
