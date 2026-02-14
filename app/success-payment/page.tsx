@@ -9,9 +9,9 @@ export default function SuccessPaymentPage() {
         <div className="bg-white rounded-3xl shadow-lg p-8 text-center">
           {/* Success Icon */}
           <div className="flex justify-center mb-6">
-              <div className="relative bg-green-100 rounded-full p-4">
-                <CheckCircle className="w-16 h-16" style={{ color: '#12B76A' }} strokeWidth={2.5} />
-              </div>
+            <div className="relative bg-green-100 rounded-full p-4">
+              <CheckCircle className="w-16 h-16" style={{ color: '#12B76A' }} strokeWidth={2.5} />
+            </div>
           </div>
 
           {/* Success Message */}
@@ -66,6 +66,17 @@ export default function SuccessPaymentPage() {
             Continue Shopping
             <ArrowRight className="w-5 h-5" />
           </button> */}
+        </div>
+
+        <div>
+          <a
+            href="safinder://home" // This triggers the mobile app
+            className="w-full mt-6 rounded-xl py-4 px-6 font-semibold text-white flex items-center justify-center gap-2 transition-all hover:opacity-90"
+            style={{ backgroundColor: '#ff7db0' }}
+          >
+            Volver a Safinder
+            <ArrowRight className="w-5 h-5" />
+          </a>
         </div>
 
         {/* Support Text */}
