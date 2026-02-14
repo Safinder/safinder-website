@@ -40,7 +40,7 @@ export default function CancelPaymentPage() {
             </div>
           </div>
 
-           <div>
+           {/* <div>
           <a
             href="safinder://home" // This triggers the mobile app
             className="w-full mt-6 rounded-xl py-4 px-6 font-semibold text-white flex items-center justify-center gap-2 transition-all hover:opacity-90"
@@ -49,7 +49,7 @@ export default function CancelPaymentPage() {
             Volver a Safinder
             <ArrowRight className="w-5 h-5" />
           </a>
-        </div>
+        </div> */}
 
           {/* Session Details */}
           {/* <div className="rounded-2xl p-6 mb-6" style={{ backgroundColor: '#F9FAFB' }}>

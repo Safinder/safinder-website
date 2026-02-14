@@ -68,7 +68,7 @@ export default function SuccessPaymentPage() {
           </button> */}
         </div>
 
-        <div>
+        {/* <div>
           <a
             href="safinder://home" // This triggers the mobile app
             className="w-full mt-6 rounded-xl py-4 px-6 font-semibold text-white flex items-center justify-center gap-2 transition-all hover:opacity-90"
@@ -77,7 +77,7 @@ export default function SuccessPaymentPage() {
             Volver a Safinder
             <ArrowRight className="w-5 h-5" />
           </a>
-        </div>
+        </div> */}
 
         {/* Support Text */}
         <p className="text-center text-sm mt-6" style={{ color: '#98A2B3' }}>
