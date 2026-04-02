@@ -128,7 +128,7 @@ const deleteAccountContent = {
 };
 
 export default function DeleteAccount() {
-  const [currentLanguage, setCurrentLanguage] = useState<Language>("en");
+  const [currentLanguage, setCurrentLanguage] = useState<Language>("es");
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [showDeletionModal, setShowDeletionModal] = useState<boolean>(false);
