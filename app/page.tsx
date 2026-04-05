@@ -22,7 +22,7 @@ import {
 
 export default function HomePage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [currentLanguage, setCurrentLanguage] = useState<Language>("en");
+  const [currentLanguage, setCurrentLanguage] = useState<Language>("es");
 
   const t = (key: TranslationKey) => translations[currentLanguage][key];
 

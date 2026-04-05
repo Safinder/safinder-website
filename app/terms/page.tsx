@@ -217,7 +217,7 @@ const termsContent = {
 };
 
 export default function TermsPage() {
-  const [currentLanguage, setCurrentLanguage] = useState<Language>("en");
+  const [currentLanguage, setCurrentLanguage] = useState<Language>("es");
 
   const content = termsContent[currentLanguage];
 
