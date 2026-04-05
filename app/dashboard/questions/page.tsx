@@ -148,7 +148,7 @@ export default function QuestionsManager() {
             {/* Modal para añadir/editar pregunta */}
             {showForm && (
                 <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-                    <div className="bg-white w-full max-w-lg rounded-3xl p-8 shadow-2xl space-y-6">
+                    <div className="bg-white w-full max-w-3xl rounded-3xl p-8 shadow-2xl space-y-6">
                         <h2 className="text-xl font-bold">
                             {editIndex !== null ? 'Editar pregunta' : `Añadir nueva pregunta a ${category === 'questions_friendship' ? 'Amistad' : 'Amor'}`}
                         </h2>

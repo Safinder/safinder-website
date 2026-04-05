@@ -13,8 +13,7 @@ import {
   DocumentData
 } from 'firebase/firestore';
 import { 
-  Calendar, Users, MessageSquare, MapPin, Plus, 
-  ExternalLink, Search, MoreVertical, ChevronLeft, ChevronRight 
+  Calendar, Users, MapPin, Plus, Search, ChevronLeft, ChevronRight 
 } from 'lucide-react';
 
 const EVENTS_PER_PAGE = 6;
@@ -24,7 +23,6 @@ export default function EventsPage() {
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     
-    // Estados de Paginación
     const [lastDoc, setLastDoc] = useState<QueryDocumentSnapshot<DocumentData> | null>(null);
     const [firstDoc, setFirstDoc] = useState<QueryDocumentSnapshot<DocumentData> | null>(null);
     const [page, setPage] = useState(1);
@@ -43,8 +41,6 @@ export default function EventsPage() {
             if (direction === 'next' && lastDoc) {
                 q = query(eventsRef, orderBy("date", "asc"), startAfter(lastDoc), limit(EVENTS_PER_PAGE));
             } else {
-                // Por simplicidad en Firestore, el "prev" suele manejarse reiniciando o con cursores complejos.
-                // Aquí reiniciamos para asegurar consistencia si no hay estados guardados de páginas previas.
                 q = query(eventsRef, orderBy("date", "asc"), limit(EVENTS_PER_PAGE));
                 setPage(1);
             }
@@ -164,9 +160,6 @@ function EventCard({ event }: { event: any }) {
                             </div>
                         </div>
                     </div>
-                    <button className="text-slate-300 hover:text-slate-600 transition-colors">
-                        <MoreVertical size={20} />
-                    </button>
                 </div>
 
                 <div className="grid grid-cols-3 gap-2 py-3 border-y border-slate-50">
@@ -190,12 +183,6 @@ function EventCard({ event }: { event: any }) {
                             {event.groupChat ? event.groupChat.substring(0, 6) + "..." : "N/A"}
                         </div>
                     </div>
-                </div>
-
-                <div className="flex justify-end pt-2">
-                    <button className="text-xs font-bold text-pink-600 flex items-center gap-1 hover:text-pink-700 transition-colors">
-                        Editar Evento <ExternalLink size={12} />
-                    </button>
                 </div>
             </div>
         </div>
