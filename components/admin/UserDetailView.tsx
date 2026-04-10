@@ -15,8 +15,10 @@ export default function UserDetailView({ user, onClose }: { user: any, onClose: 
         }
         return age;
     };
+
+    console.log("Rendering UserDetailView for user:", user);
     return (
-        <div className="fixed inset-y-0 right-0 w-full max-w-xl bg-white shadow-2xl z-50 flex flex-col border-l border-slate-200 animate-in slide-in-from-right duration-300">
+        <div className="fixed inset-y-0 right-0 w-full max-w-xl bg-white shadow-2xl z-50 flex flex-col border-l border-slate-200 animate-in slide-in-from-right duration-300 !mt-0">
             {/* Header */}
             <div className="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50">
                 <div>
@@ -77,10 +79,6 @@ export default function UserDetailView({ user, onClose }: { user: any, onClose: 
                                 </div>
                                 <span className="text-slate-400 text-xs">({user.dob})</span>
 
-                            </div>
-                            <div className="flex items-center gap-2 text-sm text-slate-600">
-                                <Smartphone size={16} className="text-slate-400" />
-                                <span className="capitalize">OS: {user.platform || 'Legacy'}</span>
                             </div>
                         </div>
                     </section>

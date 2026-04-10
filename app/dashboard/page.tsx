@@ -12,30 +12,49 @@ export default function DashboardPage() {
     social: 0,
     cities: {} as Record<string, number>,
     newUsersWeek: 0,
+    activeUsers24h: 0,
     loading: true
   });
 
   useEffect(() => {
     loadDashboardData();
   }, []);
-  
+
   async function loadDashboardData() {
     const usersRef = collection(db, "users");
 
-    const date = new Date();
-    date.setDate(date.getDate() - 7);
-    const oneWeekAgoISO = date.toISOString();
+
+    // Calculate the current week's Monday and Sunday (ISO format)
+    const now = new Date();
+    // Get the current day of week (0 = Sunday, 1 = Monday, ...)
+    const dayOfWeek = now.getDay();
+    // Calculate how many days to subtract to get to Monday
+    const diffToMonday = (dayOfWeek + 6) % 7;
+    const monday = new Date(now);
+    monday.setDate(now.getDate() - diffToMonday);
+    monday.setHours(0, 0, 0, 0);
+    const sunday = new Date(monday);
+    sunday.setDate(monday.getDate() + 6);
+    sunday.setHours(23, 59, 59, 999);
+    const mondayISO = monday.toISOString();
+    const sundayISO = sunday.toISOString();
 
     const premiumQuery = query(usersRef, where("isPremium", "==", true));
     const socialQuery = query(usersRef, where("isSocial", "==", true));
-    
-    const lastWeekQuery = query(usersRef, where("createdAt", ">=", oneWeekAgoISO));
+    // Get today's date in YYYY-MM-DD format
+    const todayISO = new Date().toISOString().slice(0, 10); // e.g., "2026-04-07"
+    // Query for users whose lastEntered starts with today's date
+    const activeQuery = query(usersRef, where("lastEntered", ">=", todayISO), where("lastEntered", "<", todayISO + "T23:59:59.999Z"));
 
-    const [totalSnap, premiumSnap, socialSnap, lastWeekSnap] = await Promise.all([
+    // Query for users created this week (Monday to Sunday)
+    const lastWeekQuery = query(usersRef, where("createdAt", ">=", mondayISO), where("createdAt", "<=", sundayISO));
+
+    const [totalSnap, premiumSnap, socialSnap, lastWeekSnap, activeSnap] = await Promise.all([
       getAggregateFromServer(usersRef, { count: count() }),
       getAggregateFromServer(premiumQuery, { count: count() }),
       getAggregateFromServer(socialQuery, { count: count() }),
       getAggregateFromServer(lastWeekQuery, { count: count() }),
+      getAggregateFromServer(activeQuery, { count: count() }),
     ]);
 
     const citySnapshot = await getDocs(usersRef);
@@ -51,6 +70,7 @@ export default function DashboardPage() {
       premium: premiumSnap.data().count,
       social: socialSnap.data().count,
       newUsersWeek: lastWeekSnap.data().count,
+      activeUsers24h: activeSnap.data().count,
       cities: cityCounts,
       loading: false
     });
@@ -93,7 +113,7 @@ export default function DashboardPage() {
         />
         <StatCard
           title="Active Users (24h)"
-          value="???"
+          value={stats.activeUsers24h}
           icon={<Activity className="text-pink-600" />}
         />
       </div>

@@ -3,6 +3,8 @@ import { useState, useEffect, useMemo } from 'react';
 import {
     collection,
     getDocs,
+    query,
+    orderBy,
 } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { ChevronLeft, ChevronRight, Search, X, Loader2 } from 'lucide-react';
@@ -29,9 +31,9 @@ export default function UsersPage() {
         setLoading(true);
         try {
             const usersRef = collection(db, "users");
-            // We fetch everything ordered by date
-            const snapshot = await getDocs(usersRef);
-            
+            // Order by termsAcceptedAt descending (most recent first)
+            const usersQuery = query(usersRef, orderBy("termsAcceptedAt", "desc"));
+            const snapshot = await getDocs(usersQuery);
             const list = snapshot.docs.map(doc => ({ 
                 id: doc.id, 
                 ...doc.data() 
@@ -68,6 +70,7 @@ export default function UsersPage() {
         setCurrentPage(1);
     }, [searchTerm]);
 
+    console.log("Rendering UsersPage with:", selectedUser);
     return (
         <div className="space-y-6">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -188,7 +191,7 @@ export default function UsersPage() {
             {selectedUser && (
                 <>
                     <div 
-                        className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-40" 
+                        className="fixed inset-0 min-h-screen !mt-0 bg-slate-900/40 backdrop-blur-sm z-40" 
                         onClick={() => setSelectedUser(null)} 
                     />
                     <UserDetailView
