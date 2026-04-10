@@ -104,9 +104,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       </aside>
 
       <main className="flex-1 flex flex-col overflow-hidden">
-        <header className="h-16 bg-white border-b border-slate-200 px-8 py-5 self-end">  
-          <div className="flex items-center gap-4">
-            <div className="mr-0">
+        <header className="h-16 bg-white border-b border-slate-200 px-8 py-5 w-full">  
+          <div className="flex items-center gap-4 justify-end">
+            <div className="flex flex-col items-end">
               {/* Use the local user state instead of authInstance.currentUser */}
               <p className="text-xs font-semibold mb-1">{user.email}</p>
             </div>
@@ -117,7 +117,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </header>
 
         <section className="p-8 overflow-y-auto">
-          {children}
+          {children}  
         </section>
       </main>
     </div>
