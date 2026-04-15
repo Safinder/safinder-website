@@ -178,7 +178,7 @@ export default function HomePage() {
       )}
 
       {/* Hero Section */}
-      <section className="py-20 px-4">
+      <section id="hero" className="py-20 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left side - Text content */}
@@ -461,13 +461,19 @@ export default function HomePage() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
-              size="lg"
-              className="bg-white text-pink-600 hover:bg-pink-50 px-8 py-4 text-lg rounded-full shadow-lg hover:shadow-xl transition-all"
+            <button
+              type="button"
+              onClick={() => {
+                const hero = document.getElementById('hero');
+                if (hero) {
+                  hero.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+              className="flex flex-row items-center bg-white text-pink-600 hover:bg-pink-50 px-8 py-4 text-lg rounded-full shadow-lg hover:shadow-xl transition-all"
             >
               <Download className="mr-2 h-5 w-5" />
-              {t("downloadSoon")}
-            </Button>
+              {t("downloadNow")}
+            </button>
           </div>
         </div>
       </section>
@@ -522,7 +528,7 @@ export default function HomePage() {
           </div>
 
           <p className="text-pink-300">
-            © 2025 Safinder.{" "}
+            © {new Date().getFullYear()} Safinder.{" "}
             {currentLanguage === "en"
               ? "Made with 💖 for the sapphic community."
               : currentLanguage === "es"

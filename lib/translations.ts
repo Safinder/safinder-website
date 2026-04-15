@@ -53,6 +53,7 @@ export const translations = {
     readyDesc:
       "Join thousands of sapphic women and non-binary individuals who have found meaningful connections on Safinder.",
     downloadSoon: "Download Soon",
+    downloadNow: "Download Now",
 
     // Footer
     footerText: "Made with 💖 for the sapphic community.",
@@ -133,6 +134,8 @@ export const translations = {
     readyDesc:
       "Únete a miles de mujeres sáficas y personas no binarias que han encontrado conexiones significativas en Safinder.",
     downloadSoon: "Descargar Pronto",
+    downloadNow: "Descargar Ahora",
+    
 
     // Footer
     footerText: "Hecho con 💖 para la comunidad sáfica.",
@@ -211,6 +214,7 @@ export const translations = {
     readyDesc:
       "Sluit je aan bij duizenden saffische vrouwen en non-binaire personen die betekenisvolle verbindingen hebben gevonden op Safinder.",
     downloadSoon: "Binnenkort Downloaden",
+    downloadNow: "Nu Downloaden",
 
     // Footer
     footerText: "Gemaakt met 💖 voor de saffische gemeenschap.",
