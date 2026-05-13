@@ -19,12 +19,52 @@ import {
   type Language,
   type TranslationKey,
 } from "@/lib/translations";
+import { db } from "@/lib/firebase";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { Input } from "@/components/ui/input";
 
 export default function HomePage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [currentLanguage, setCurrentLanguage] = useState<Language>("es");
 
+  const [question, setQuestion] = useState("");
+  const [answers, setAnswers] = useState(["", "", "", ""]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submissionSuccess, setSubmissionSuccess] = useState(false);
+  const [error, setError] = useState(false);
+
+
   const t = (key: TranslationKey) => translations[currentLanguage][key];
+
+  const handleQuestionSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!question || answers.some(a => !a)) return alert("Rellena todos los campos.");
+
+    setIsSubmitting(true);
+    try {
+      await addDoc(collection(db, "questions_suggestions"), {
+        question,
+        answers,
+        language: currentLanguage,
+        createdAt: serverTimestamp(),
+      });
+
+      setSubmissionSuccess(true);
+      setQuestion("");
+      setAnswers(["", "", "", ""]);
+    } catch (error) {
+      setError(true);
+      console.error("Error adding document: ", error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleAnswerChange = (index: number, value: string) => {
+    const newAnswers = [...answers];
+    newAnswers[index] = value;
+    setAnswers(newAnswers);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 via-yellow-50 to-orange-50">
@@ -55,8 +95,8 @@ export default function HomePage() {
             {currentLanguage === "en"
               ? "Terms and Conditions"
               : currentLanguage === "es"
-              ? "Términos y Condiciones"
-              : "Algemene Voorwaarden"}
+                ? "Términos y Condiciones"
+                : "Algemene Voorwaarden"}
           </Link>
           <Link
             href="/privacy"
@@ -65,8 +105,8 @@ export default function HomePage() {
             {currentLanguage === "en"
               ? "Privacy Policy"
               : currentLanguage === "es"
-              ? "Política de Privacidad"
-              : "Privacybeleid"}
+                ? "Política de Privacidad"
+                : "Privacybeleid"}
           </Link>
           <Link
             href="/delete-account"
@@ -75,8 +115,8 @@ export default function HomePage() {
             {currentLanguage === "en"
               ? "Delete Account"
               : currentLanguage === "es"
-              ? "Eliminar Cuenta"
-              : "Account Verwijderen"}
+                ? "Eliminar Cuenta"
+                : "Account Verwijderen"}
           </Link>
 
           <LanguageSelector
@@ -141,8 +181,8 @@ export default function HomePage() {
                 {currentLanguage === "en"
                   ? "Terms and Conditions"
                   : currentLanguage === "es"
-                  ? "Términos y Condiciones"
-                  : "Algemene Voorwaarden"}
+                    ? "Términos y Condiciones"
+                    : "Algemene Voorwaarden"}
               </Link>
               <Link
                 href="/privacy"
@@ -152,8 +192,8 @@ export default function HomePage() {
                 {currentLanguage === "en"
                   ? "Privacy Policy"
                   : currentLanguage === "es"
-                  ? "Política de Privacidad"
-                  : "Privacybeleid"}
+                    ? "Política de Privacidad"
+                    : "Privacybeleid"}
               </Link>
               <Link
                 href="/delete-account"
@@ -163,8 +203,8 @@ export default function HomePage() {
                 {currentLanguage === "en"
                   ? "Delete Account"
                   : currentLanguage === "es"
-                  ? "Eliminar Cuenta"
-                  : "Account Verwijderen"}
+                    ? "Eliminar Cuenta"
+                    : "Account Verwijderen"}
               </Link>
               <div className="pt-2">
                 <LanguageSelector
@@ -281,6 +321,112 @@ export default function HomePage() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="py-20 px-4">
+        <div className="max-w-2xl mx-auto">
+          <div className="text-center mb-10">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-pink-100 rounded-full mb-4 shadow-inner">
+              <span className="text-3xl">💌</span>
+            </div>
+            <h2 className="text-6xl font-bold bg-gradient-to-r from-pink-500  to-pink-700 bg-clip-text text-transparent leading-tight flex items-center justify-center gap-3">
+              {currentLanguage === "en" ? "Suggest a Question" : "Sugiere una pregunta"}
+            </h2>
+            <p className="text-pink-400 mt-2 text-sm font-medium tracking-wide">
+              {currentLanguage === "en"
+                ? "✨ Your question could appear in the next test! ✨"
+                : "✨ ¡Tu pregunta podría aparecer en el próximo test! ✨"}
+            </p>
+          </div>
+
+          <Card className="rounded-2xl shadow overflow-hidden">
+            <CardContent className="p-8">
+              <form onSubmit={handleQuestionSubmit} className="space-y-6">
+
+                {/* Question Field */}
+                <div>
+                  <label className="flex items-center gap-2 text-pink-700 font-bold mb-2">
+                    <span className="text-lg">🤔</span>
+                    {currentLanguage === "en" ? "The Question" : "La Pregunta"}
+                  </label>
+                  <Input
+                    placeholder={currentLanguage === "en" ? "e.g. What is your dream date?" : "ej. ¿Cuál es tu cita ideal?"}
+                    value={question}
+                    onChange={(e) => setQuestion(e.target.value)}
+                    className="border-pink-200 focus:ring-pink-500"
+                  />
+                </div>
+
+                {/* Answer Options */}
+                <div>
+                  <label className="flex items-center gap-2 text-pink-700 font-bold mb-3">
+                    <span className="text-lg">🗳️</span>
+                    {currentLanguage === "en" ? "Answer Options" : "Opciones de Respuesta"}
+                  </label>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {answers.map((answer, index) => {
+                      return (
+                        <div key={index}>
+                          <label className="flex items-center gap-1 text-sm text-pink-600 font-semibold mb-1">
+                            {currentLanguage === "en" ? `Option ${index + 1}` : `Opción ${index + 1}`}
+                          </label>
+                          <Input
+                            placeholder="..."
+                            value={answer}
+                            onChange={(e) => handleAnswerChange(index, e.target.value)}
+                            className="border-pink-100"
+                          />
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {submissionSuccess && (
+                  <div className="bg-green-100 border border-green-400 rounded-lg mt-2">
+                    <p className="text-center text-green-500 text-sm p-3">
+                      {currentLanguage === "en" ? "Thank you! Your question has been submitted." : "¡Gracias! Tu pregunta ha sido enviada."}
+                    </p>
+                  </div>
+                )}
+                {error && (
+                  <div className="bg-red-100 border border-red-400 rounded-lg mt-2">
+                    <p className="text-center text-pink-500 text-sm p-3">
+                      {currentLanguage === "en" ? "There was an error submitting your question. Please try again later." : "Hubo un error al enviar tu pregunta. Por favor, inténtalo de nuevo más tarde."}
+                    </p>
+                  </div>
+                )}
+
+                {/* Submit Button */}
+                <Button
+                  disabled={isSubmitting}
+                  className="w-full bg-pink-600 hover:bg-pink-700 text-white font-bold py-6 rounded-xl transition-all flex items-center justify-center gap-2"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <span className="animate-spin text-xl">⏳</span>
+                      {currentLanguage === "en" ? "Sending..." : "Enviando..."}
+                    </>
+                  ) : (
+                    <>
+                      <span className="text-xl">📮</span>
+                      {currentLanguage === "en" ? "Submit Suggestion" : "Enviar Sugerencia"}
+                    </>
+                  )}
+                </Button>
+
+                {/* Footer hint */}
+                <p className="text-center text-xs text-pink-300 flex items-center justify-center gap-1">
+                  <span>🔒</span>
+                  {currentLanguage === "en"
+                    ? "All suggestions are reviewed before going live"
+                    : "Todas las sugerencias se revisan antes de publicarse"}
+                </p>
+
+              </form>
+            </CardContent>
+          </Card>
         </div>
       </section>
 
@@ -469,7 +615,7 @@ export default function HomePage() {
                   hero.scrollIntoView({ behavior: 'smooth' });
                 }
               }}
-              className="flex flex-row items-center bg-white text-pink-600 hover:bg-pink-50 px-8 py-4 text-lg rounded-full shadow-lg hover:shadow-xl transition-all"
+              className="flex flex-row items-center bg-white text-pink-600 hover:bg-pink-50 px-8 py-4 text-lg rounded-full shadow-lg hover:shadow-xl transition-all text-center mx-auto"
             >
               <Download className="mr-2 h-5 w-5" />
               {t("downloadNow")}
@@ -495,8 +641,8 @@ export default function HomePage() {
               {currentLanguage === "en"
                 ? "Home"
                 : currentLanguage === "es"
-                ? "Inicio"
-                : "Home"}
+                  ? "Inicio"
+                  : "Home"}
             </Link>
             <Link
               href="/privacy"
@@ -505,15 +651,15 @@ export default function HomePage() {
               {currentLanguage === "en"
                 ? "Privacy Policy"
                 : currentLanguage === "es"
-                ? "Política de Privacidad"
-                : "Privacybeleid"}
+                  ? "Política de Privacidad"
+                  : "Privacybeleid"}
             </Link>
             <Link href="/terms" className="hover:text-white transition-colors">
               {currentLanguage === "en"
                 ? "Terms & Conditions"
                 : currentLanguage === "es"
-                ? "Términos y Condiciones"
-                : "Algemene Voorwaarden"}
+                  ? "Términos y Condiciones"
+                  : "Algemene Voorwaarden"}
             </Link>
             <Link
               href="/privacy/#contact"
@@ -522,8 +668,8 @@ export default function HomePage() {
               {currentLanguage === "en"
                 ? "Contact"
                 : currentLanguage === "es"
-                ? "Contacto"
-                : "Contact"}
+                  ? "Contacto"
+                  : "Contact"}
             </Link>
           </div>
 
@@ -532,8 +678,8 @@ export default function HomePage() {
             {currentLanguage === "en"
               ? "Made with 💖 for the sapphic community."
               : currentLanguage === "es"
-              ? "Hecho con 💖 para la comunidad sáfica."
-              : "Gemaakt met 💖 voor de saffische gemeenschap."}
+                ? "Hecho con 💖 para la comunidad sáfica."
+                : "Gemaakt met 💖 voor de saffische gemeenschap."}
           </p>
         </div>
       </footer>
