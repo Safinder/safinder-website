@@ -22,6 +22,8 @@ import {
 import { db } from "@/lib/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 export default function HomePage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -29,6 +31,7 @@ export default function HomePage() {
 
   const [question, setQuestion] = useState("");
   const [answers, setAnswers] = useState(["", "", "", ""]);
+  const [interest, setInterest] = useState<"romantic" | "friendship">("romantic");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submissionSuccess, setSubmissionSuccess] = useState(false);
   const [error, setError] = useState(false);
@@ -45,13 +48,14 @@ export default function HomePage() {
       await addDoc(collection(db, "questions_suggestions"), {
         question,
         answers,
-        language: currentLanguage,
+        interest,
         createdAt: serverTimestamp(),
       });
 
       setSubmissionSuccess(true);
       setQuestion("");
       setAnswers(["", "", "", ""]);
+      // Reset scroll or category if needed
     } catch (error) {
       setError(true);
       console.error("Error adding document: ", error);
@@ -324,7 +328,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-20 px-4">
+      <section className="pt-5 pb-20 px-4">
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-10">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-pink-100 rounded-full mb-4 shadow-inner">
@@ -344,25 +348,55 @@ export default function HomePage() {
             <CardContent className="p-8">
               <form onSubmit={handleQuestionSubmit} className="space-y-6">
 
+                <div>
+                  <label className="flex items-center gap-2 text-pink-700 font-bold mb-3">
+                    {currentLanguage === "en" ? "Category" : "Categoría"}
+                  </label>
+                  <div className="grid grid-cols-2 gap-4">
+                    <button
+                      type="button"
+                      onClick={() => setInterest("romantic")}
+                      className={`flex items-center justify-center gap-2 p-3 rounded-xl border-2 transition-all font-bold ${
+                        interest === "romantic"
+                          ? "border-pink-500 bg-pink-50 text-pink-600 shadow-sm"
+                          : "border-gray-100 text-gray-400 hover:border-pink-200"
+                      }`}
+                    >
+                      <Heart className={`h-4 w-4 ${interest === "romantic" ? "fill-pink-500" : ""}`} />
+                      {currentLanguage === "en" ? "Romantic" : "Romántica"}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setInterest("friendship")}
+                      className={`flex items-center justify-center gap-2 p-3 rounded-xl border-2 transition-all font-bold ${
+                        interest === "friendship"
+                          ? "border-yellow-500 bg-yellow-50 text-yellow-700 shadow-sm"
+                          : "border-gray-100 text-gray-400 hover:border-yellow-200"
+                      }`}
+                    >
+                      <Users className="h-4 w-4" />
+                      {currentLanguage === "en" ? "Friendship" : "Amistad"}
+                    </button>
+                  </div>
+                </div>
+
                 {/* Question Field */}
                 <div>
                   <label className="flex items-center gap-2 text-pink-700 font-bold mb-2">
-                    <span className="text-lg">🤔</span>
-                    {currentLanguage === "en" ? "The Question" : "La Pregunta"}
+                    {currentLanguage === "en" ? "The Question" : "La pregunta"}
                   </label>
                   <Input
                     placeholder={currentLanguage === "en" ? "e.g. What is your dream date?" : "ej. ¿Cuál es tu cita ideal?"}
                     value={question}
                     onChange={(e) => setQuestion(e.target.value)}
-                    className="border-pink-200 focus:ring-pink-500"
+                    className="border-pink-200 focus:ring-pink-500 placeholder:text-neutral-400"
                   />
                 </div>
 
                 {/* Answer Options */}
                 <div>
                   <label className="flex items-center gap-2 text-pink-700 font-bold mb-3">
-                    <span className="text-lg">🗳️</span>
-                    {currentLanguage === "en" ? "Answer Options" : "Opciones de Respuesta"}
+                    {currentLanguage === "en" ? "Answer Options" : "Opciones de respuesta"}
                   </label>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {answers.map((answer, index) => {
