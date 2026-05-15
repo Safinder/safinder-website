@@ -5,7 +5,7 @@ import { signOut, onAuthStateChanged, User } from 'firebase/auth';
 import { useRouter, usePathname } from 'next/navigation';
 import { auth } from '@/lib/firebase';
 import Link from 'next/link';
-import { Users, Calendar, LayoutDashboard, LogOut, FileQuestion, TriangleAlert, Star } from 'lucide-react';
+import { Users, Calendar, LayoutDashboard, LogOut, FileQuestion, TriangleAlert, Star, MessageCircleQuestion } from 'lucide-react';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -89,6 +89,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             label="Reports"
             href="/dashboard/reports"
             active={pathname === "/dashboard/reports"}
+          />
+          <NavItem
+            icon={<MessageCircleQuestion size={20} />}
+            label="Suggested Questions"
+            href="/dashboard/suggested-questions"
+            active={pathname === "/dashboard/suggested-questions"}
           />
         </nav>
 
