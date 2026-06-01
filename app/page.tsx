@@ -30,7 +30,7 @@ export default function HomePage() {
   const [currentLanguage, setCurrentLanguage] = useState<Language>("es");
 
   const [question, setQuestion] = useState("");
-  const [answers, setAnswers] = useState(["", "", "", ""]);
+  const [answers, setAnswers] = useState(["", "", ""]);
   const [interest, setInterest] = useState<"romantic" | "friendship">("romantic");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submissionSuccess, setSubmissionSuccess] = useState(false);

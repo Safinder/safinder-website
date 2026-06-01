@@ -9,6 +9,7 @@ import {
     limit,
     startAfter,
     endBefore,
+    getCountFromServer,
 } from 'firebase/firestore';
 import { useEffect, useState, useRef } from "react";
 
@@ -27,9 +28,20 @@ const SuggestedQuestionsPage = () => {
     const [pageCursors, setPageCursors] = useState<any[]>([]); // Array of last docs for each page
     const [currentPage, setCurrentPage] = useState(0);
     const [hasNext, setHasNext] = useState(false);
+    const [totalQuestions, setTotalQuestions] = useState(0);
     const [hasPrev, setHasPrev] = useState(false);
     const lastVisibleRef = useRef<any>(null);
     const firstVisibleRef = useRef<any>(null);
+
+    const fetchTotalQuestions = async () => {
+        try {
+            const questionsRef = collection(db, "questions_suggestions");
+            const snapshot = await getCountFromServer(query(questionsRef));
+            setTotalQuestions(snapshot.data().count);
+        } catch (error) {
+            console.error("Error fetching total questions:", error);
+        }
+    };
 
     const fetchQuestions = async (direction: 'next' | 'prev' | 'initial' = 'initial') => {
         setLoading(true);
@@ -89,6 +101,7 @@ const SuggestedQuestionsPage = () => {
 
     useEffect(() => {
         fetchQuestions('initial');
+        fetchTotalQuestions();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -110,9 +123,14 @@ const SuggestedQuestionsPage = () => {
 
     return (
         <div>
-            <div className="mb-6">
-                <h1 className="text-3xl font-bold text-slate-800">Preguntas Sugeridas</h1>
-                <p className="text-slate-500">Preguntas impulsadas por la comunidad para nuestras próximas actualizaciones.</p>
+            <div className='flex items-start justify-between'>
+                <div className="mb-6">
+                    <h1 className="text-3xl font-bold text-slate-800">Preguntas Sugeridas</h1>
+                    <p className="text-slate-500">Preguntas impulsadas por la comunidad para nuestras próximas actualizaciones.</p>
+                </div>
+                <div className='bg-pink-300 border-2 border-pink-500 rounded-md p-3 w-fit'>
+                    <p className='text-pink-500 font-semibold text-xl'>{totalQuestions} preguntas en total</p>
+                </div>
             </div>
 
             <div>

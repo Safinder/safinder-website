@@ -56,7 +56,7 @@ export default function EventsPage() {
                 constraints.push(orderBy("title"));
             } else {
                 // No isSpam filter here anymore!
-                constraints.push(orderBy("createdAt", "asc"));
+                constraints.push(orderBy("createdAt", "desc"));
             }
 
             // 2. Handle Pagination
