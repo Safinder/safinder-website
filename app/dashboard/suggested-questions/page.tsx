@@ -17,6 +17,7 @@ interface QuestionSuggestion {
     question: string;
     interest: string;
     answers: string[];
+    createdAt?: string; // Optional field for display purposes
 }
 
 
@@ -70,6 +71,13 @@ const SuggestedQuestionsPage = () => {
                         question: data.question,
                         interest: data.interest,
                         answers: data.answers,
+                        createdAt: data.createdAt
+                            ? new Date(data.createdAt.seconds * 1000).toLocaleDateString('es-ES', {
+                                day: '2-digit',
+                                month: '2-digit',
+                                year: 'numeric',
+                            })
+                            : undefined,
                     });
                 }
             });
@@ -136,8 +144,11 @@ const SuggestedQuestionsPage = () => {
             <div>
                 {questions.map((q) => (
                     <div key={`${q.question}-${q.interest}`} className="bg-white p-4 rounded-2xl mb-3">
-                        <div className={`flex items-center gap-4 rounded-full w-fit ${q.interest === 'romantic' ? 'bg-pink-200 border border-pink-500' : 'bg-amber-300 border border-amber-500'}`}>
-                            <p className={`font-semibold py-1 px-2 text-sm ${q.interest === 'romantic' ? 'text-pink-700' : 'text-amber-700'}`}>{q.interest}</p>
+                        <div className='flex justify-between items-center mb-2'>
+                            <div className={`flex items-center gap-4 rounded-full w-fit ${q.interest === 'romantic' ? 'bg-pink-200 border border-pink-500' : 'bg-amber-300 border border-amber-500'}`}>
+                            <p className={`font-semibold py-1 px-2.5 text-sm ${q.interest === 'romantic' ? 'text-pink-700' : 'text-amber-700'}`}>{q.interest}</p>
+                        </div>
+                        <p className="text-slate-500 text-sm">{q.createdAt}</p>
                         </div>
 
                         <p className="text-slate-800 font-semibold my-2">{q.question}</p>

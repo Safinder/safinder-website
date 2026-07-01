@@ -5,7 +5,7 @@ import { signOut, onAuthStateChanged, User } from 'firebase/auth';
 import { useRouter, usePathname } from 'next/navigation';
 import { auth } from '@/lib/firebase';
 import Link from 'next/link';
-import { Users, Calendar, LayoutDashboard, LogOut, FileQuestion, TriangleAlert, Star, MessageCircleQuestion } from 'lucide-react';
+import { Users, Calendar, LayoutDashboard, LogOut, FileQuestion, TriangleAlert, Star, MessageCircleQuestion, Megaphone } from 'lucide-react';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -62,39 +62,45 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <nav className="flex-1 px-4 space-y-2">
           <NavItem
             icon={<LayoutDashboard size={20} />}
-            label="Overview"
+            label="Resumen"
             href="/dashboard"
             active={pathname === "/dashboard"}
           />
           <NavItem
             icon={<Users size={20} />}
-            label="User Management"
+            label="Gestión de Usuarios"
             href="/dashboard/users"
             active={pathname === "/dashboard/users"}
           />
           <NavItem
             icon={<FileQuestion size={20} />}
-            label="Questions"
+            label="Preguntas"
             href="/dashboard/questions"
             active={pathname === "/dashboard/questions"}
           />
           <NavItem
             icon={<Calendar size={20} />}
-            label="Events"
+            label="Eventos"
             href="/dashboard/events"
             active={pathname === "/dashboard/events"}
           />
           <NavItem
             icon={<TriangleAlert size={20} />}
-            label="Reports"
+            label="Reportes"
             href="/dashboard/reports"
             active={pathname === "/dashboard/reports"}
           />
           <NavItem
             icon={<MessageCircleQuestion size={20} />}
-            label="Suggested Questions"
+            label="Preguntas sugeridas"
             href="/dashboard/suggested-questions"
             active={pathname === "/dashboard/suggested-questions"}
+          />
+          <NavItem
+            icon={<Megaphone size={20} />}
+            label="Control anuncios"
+            href="/dashboard/ads"
+            active={pathname === "/dashboard/ads"}
           />
         </nav>
 
